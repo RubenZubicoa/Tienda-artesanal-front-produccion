@@ -1,0 +1,76 @@
+@use '../../../core/theming/variables.scss' as variables;
+.card-container {
+  height: auto;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  background-color: variables.$light-gray-color;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 300px;
+}
+
+.card-header {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: start;
+  justify-content: start;
+
+  .card-header-title {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+}
+
+.card-header-image {
+  height: 50px;
+  background-size: cover;
+  object-fit: cover;
+  border-radius: 100%;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+.card-image-container {
+  flex: 1;
+}
+
+.card-image {
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.card-content-text {
+  flex: 1;
+}
+
+.card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.price-text {
+  font-size: 20px;
+  font-weight: 500;
+  color: variables.$text-color;
+}
+
+.buy-button {
+  width: 100%;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: 500;  
+}

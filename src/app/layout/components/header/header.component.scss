@@ -1,0 +1,39 @@
+@use '../../../core/theming/variables.scss' as variables;
+
+.header-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100%;
+    box-sizing: border-box;
+    // width: 100vw;
+  }
+  
+  .header-logo {
+    display: flex;
+    justify-content: start;
+    align-items: center;    
+    gap: 10px;
+    flex: 1;
+    img {
+      height: 80%;
+    }
+  }
+  .platform-title {
+    display: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .header-search {
+    flex: 1;
+  }
+  
+  .header-buttons {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 20px;
+    flex: 1;
+  
+  }

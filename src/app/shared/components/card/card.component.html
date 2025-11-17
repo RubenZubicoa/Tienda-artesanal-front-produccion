@@ -1,0 +1,20 @@
+@let productTemplate = product();
+<div class="card-container">
+    <div class="card-header">
+        <img class="card-header-image" src="https://picsum.photos/300/300">
+        <div class="card-header-title">
+            <mat-card-title class="tienda-title">{{ productTemplate.name }}</mat-card-title>
+            <mat-card-subtitle class="tienda-subtitle">{{ productTemplate.manufacturerId }}</mat-card-subtitle>
+        </div>
+    </div>
+    <div class="card-content">
+        <div class="card-image-container">
+            <img class="card-image" [src]="productTemplate.image">
+        </div>
+    </div>
+    <div class="card-actions">
+        <p class="price-text">{{ productTemplate.price }} €</p>
+        <button class="buy-button tienda-primary-button">Comprar</button>
+    </div>
+
+</div>

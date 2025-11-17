@@ -1,1 +1,44 @@
+@use './app/core/theming/variables.scss' as variables;
+@use './app/core/theming/reset.scss' as reset;
+@use './app/core/theming/normalize.scss' as normalize;
 /* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: 100vh;
+  width: 100vw;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: system-ui, sans-serif; }
+
+.tienda-title {
+  font-size: 20px;
+  font-weight: 500;
+  color: variables.$text-color;
+}
+
+.tienda-subtitle {
+  font-size: 16px;
+  font-weight: 400;
+  color: variables.$text-color;
+}
+
+.tienda-text {
+  font-size: 12px;
+  font-weight: 500;
+  color: variables.$text-color;
+}
+
+.tienda-primary-button {
+  background-color: variables.$primary-color;
+  color: variables.$white-color;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+}
