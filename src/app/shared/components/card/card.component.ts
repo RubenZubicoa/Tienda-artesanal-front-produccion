@@ -1,8 +1,8 @@
 import { Component, input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { Product } from '../../../core/models/Product';
 import { CommonModule } from '@angular/common';
+import { CardData } from './card.models';
 
 @Component({
   selector: 'app-card',
@@ -12,5 +12,5 @@ import { CommonModule } from '@angular/common';
 })
 export class CardComponent {
 
-  public product = input.required<Product>();
+  public card = input.required<CardData>();
 }

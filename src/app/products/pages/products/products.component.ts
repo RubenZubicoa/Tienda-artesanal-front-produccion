@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { CardComponent } from '../../../shared/components/card/card.component';
 import { PRODUCTS_LIST } from '../../../core/data/products';
+import { Product } from '../../../core/models/Product';
+import { mapProductToCardData } from '../../../shared/components/card/card.models';
 
 @Component({
   selector: 'app-products',
@@ -10,5 +12,7 @@ import { PRODUCTS_LIST } from '../../../core/data/products';
 })
 export class ProductsComponent {
 
-  public products = PRODUCTS_LIST;
+  public products = signal<Product[]>(PRODUCTS_LIST);
+
+  public cards = computed(() => this.products().map(mapProductToCardData));
 }
