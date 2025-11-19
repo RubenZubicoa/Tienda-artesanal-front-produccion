@@ -1,7 +1,7 @@
 <section class="section-container">
     <app-breadcrumbs></app-breadcrumbs>
     <h1 class="tienda-title">Lista de productos</h1>
-    <h2 class="tienda-subtitle">Encuentra los mejores productos artesanales</h2>
+    <h2 class="tienda-subtitle">Encuentra los mejores productos artesanales cerca de ti</h2>
     <div class="products-list-container">
         @for (card of cards(); track card.uuid) {
             <app-card [card]="card" [buttonText]="'Ver producto'" [buttonType]="'primary'" (click)="goToProductDetails(card)"></app-card>

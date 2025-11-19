@@ -1,7 +1,7 @@
 <div class="section-container">
     <app-breadcrumbs></app-breadcrumbs>
     <h1 class="tienda-title">Lista de vendedores</h1>
-    <h2 class="tienda-subtitle">Encuentra los mejores vendedores de productos artesanales</h2>
+    <h2 class="tienda-subtitle">Encuentra los mejores vendedores de productos artesanales cerca de ti</h2>
     <div class="products-list-container">
         @for (card of cards(); track card.title) {
             <app-card [card]="card" [buttonText]="'Ver productos'" (click)="goToManufacturersDetails(card)"></app-card>

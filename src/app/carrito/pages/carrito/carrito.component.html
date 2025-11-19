@@ -4,7 +4,7 @@
     <h2 class="tienda-subtitle">Aquí puedes ver los productos que has agregado al carrito</h2>
     <div class="products-list-container">
         @for (card of cards(); track card.uuid) {
-            <app-card [card]="card" [buttonText]="'Ver producto'" [buttonType]="'warning'" (click)="removeProductFromCart(card)"></app-card>
+            <app-card [card]="card" [buttonText]="'Quitar del carrito'" [buttonType]="'warning'" (click)="removeProductFromCart(card)"></app-card>
         }
     </div>
 </section>

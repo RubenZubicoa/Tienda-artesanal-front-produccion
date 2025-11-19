@@ -13,8 +13,8 @@
         <span class="tienda-text">{{ product().description }}</span>
       </div>      
       <div class="product-details-content-price">
-        <span class="tienda-price-text"> {{ product().price }}</span>
-        <mat-form-field appearance="outline">
+        <span class="tienda-price-text">Precio: {{ product().price }}€</span>
+        <mat-form-field appearance="outline" class="form-control">
           <mat-label>Cantidad</mat-label>
           <input matInput type="number" class="quantity-input" value="1" #quantityInput />
         </mat-form-field>
