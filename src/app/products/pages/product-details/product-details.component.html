@@ -1,0 +1,21 @@
+<section class="section-container">
+  <app-breadcrumbs></app-breadcrumbs>
+  <div class="product-details-container">
+      <div class="product-details-image">
+        <img [src]="product().image" [alt]="product().name" class="product-image" />
+      </div>
+    <div class="product-details-content">
+      <div class="product-details-content-title">
+        <span class="tienda-title">{{ product().name }}</span>
+        <span class="tienda-subtitle">Vendido por: {{ product().manufacturer?.name }}</span>
+      </div>
+      <div class="product-details-content-description">
+        <span class="tienda-text">{{ product().description }}</span>
+      </div>      
+      <div class="product-details-content-price">
+        <span class="tienda-price-text">{{ product().price }}</span>
+        <button class="buy-button tienda-primary-button">Agregar al carrito</button>
+      </div>
+    </div>
+  </div>
+</section>

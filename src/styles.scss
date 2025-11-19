@@ -31,6 +31,16 @@ body { margin: 0; font-family: system-ui, sans-serif; }
   color: variables.$text-color;
 }
 
+.tienda-price-text {
+  font-size: 20px;
+  font-weight: 500;
+  color: variables.$text-color;
+
+  &::after {
+    content: '€';
+  }
+}
+
 .section-container {
   padding: 10px;
 }

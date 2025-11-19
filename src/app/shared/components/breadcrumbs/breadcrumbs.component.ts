@@ -29,7 +29,6 @@ export class BreadcrumbsComponent implements OnInit {
 
   private createBreadcrumbs(route: ActivatedRoute, url: string = '', breadcrumbs: Breadcrumb[] = []): Breadcrumb[] {
     const children: ActivatedRoute[] = route.children;
-    console.log(children);
     if (children.length === 0) {
       return breadcrumbs;
     }
@@ -38,7 +37,7 @@ export class BreadcrumbsComponent implements OnInit {
       const routeConfig = child.routeConfig;
       if (routeConfig && routeConfig.data && routeConfig.data['breadcrumb']) {
         const routeUrl: string = routeConfig.path ? `/${routeConfig.path}` : '';
-        const nextUrl = `app${url}${routeUrl}`;
+        const nextUrl = `${url}${routeUrl}`;
         const breadcrumb: Breadcrumb = {
           label: routeConfig.data['breadcrumb'],
           url: nextUrl

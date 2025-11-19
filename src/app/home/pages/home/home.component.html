@@ -1,1 +1,22 @@
-<p>home works!</p>
+<div class="section-container">
+    <span class="tienda-title">Bienvenido a la tienda</span>
+    <span class="tienda-subtitle">Encuentra los mejores productos artesanales</span>
+
+    <p class="tienda-text">
+        Aqui podras encontrar los mejores productos y vendedores artesanales de la region.
+    </p>
+
+    <div class="sections-list">
+        @for (section of sections; track section.title) {
+            <div class="section">
+                <div class="section-image">
+                    <img src="https://picsum.photos/300/300" />
+                </div>
+                <div class="section-content">
+                    <h3 class="tienda-title">{{ section.title }}</h3>
+                    <p class="tienda-text">{{ section.description }}</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>

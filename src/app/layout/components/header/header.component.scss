@@ -6,7 +6,8 @@
     justify-content: space-between;
     height: 100%;
     box-sizing: border-box;
-    // width: 100vw;
+    width: 100vw;
+    background-color: variables.$light-gray-color;
   }
   
   .header-logo {
@@ -15,8 +16,10 @@
     align-items: center;    
     gap: 10px;
     flex: 1;
+    padding: 5px;
     img {
       height: 80%;
+      border-radius: 100%;
     }
   }
   .platform-title {

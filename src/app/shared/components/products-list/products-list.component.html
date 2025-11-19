@@ -1,5 +1,5 @@
 <div class="products-list-container">
     @for (card of cards(); track card.title) {
-      <app-card [card]="card"></app-card>
+      <app-card [card]="card" (buttonClick)="onButtonClick($event)"></app-card>
     }
   </div>
