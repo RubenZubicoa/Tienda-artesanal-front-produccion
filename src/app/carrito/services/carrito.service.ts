@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { Product, ProductCart } from '../../core/models/Product';
 
 @Injectable({
@@ -7,6 +7,8 @@ import { Product, ProductCart } from '../../core/models/Product';
 export class CarritoService {
 
   private _carrito = signal<ProductCart[]>([]);
+  public readonly isEmpty = computed(() => this._carrito().length === 0);
+
 
   public get carrito() {
     return this._carrito.asReadonly();
@@ -23,5 +25,4 @@ export class CarritoService {
   public removeProduct(uuid: string) {
     this._carrito.update(prev => prev.filter(p => p.uuid !== uuid));
   }
-
 }

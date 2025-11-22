@@ -5,7 +5,9 @@
             <h1 class="tienda-title">Carrito de compras</h1>
             <h2 class="tienda-subtitle">Aquí puedes ver los productos que has agregado al carrito</h2>
         </div>
-        <button mat-raised-button class="tienda-primary-button complete-order-button" (click)="goToCompleteOrder()">Completar pedido</button>
+        @if (showCompleteOrderButton()) {
+            <button mat-raised-button class="tienda-primary-button complete-order-button" (click)="goToCompleteOrder()">Completar pedido</button>
+        }
     </div>
     <div class="products-list-container">
         @for (card of cards(); track card.uuid) {

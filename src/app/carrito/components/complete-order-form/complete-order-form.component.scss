@@ -1,0 +1,31 @@
+.complete-order-form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    form {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        width: 100%;
+        padding: 10px;
+    }
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+
+@media screen and (width > 768px) {
+    mat-form-field {
+        width: 40%;
+    }
+    .complete-order-button {
+     width: 50%;
+    }
+}

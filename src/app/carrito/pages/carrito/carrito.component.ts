@@ -19,6 +19,7 @@ export class CarritoComponent {
   
   public products = computed(() => this.carritoService.carrito());
   public cards = computed(() => this.products().map(mapProductCartToCardData));
+  public showCompleteOrderButton = computed(() => !this.carritoService.isEmpty());
 
   public removeProductFromCart(card: CardData) {
     this.carritoService.removeProduct(card.uuid);
