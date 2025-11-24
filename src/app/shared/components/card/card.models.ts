@@ -9,6 +9,7 @@ export type CardData = {
   perfilImage?: string;
   price?: number;
   quantity?: number;
+  description?: string;
 };
 
 export function mapProductToCardData(product: Product): CardData {
@@ -19,6 +20,7 @@ export function mapProductToCardData(product: Product): CardData {
     image: product.image,
     perfilImage: product.manufacturerId,
     price: product.price,
+    description: product.description,
   };
 }
 
@@ -30,6 +32,7 @@ export function mapManufacturerToCardData(
     title: manufacturer.name,
     subtitle: manufacturer.city,
     image: manufacturer.image ?? '',
+    description: manufacturer.description,
   };
 }
 

@@ -13,9 +13,8 @@
     color: variables.$white-color;
     border-radius: 10px;
     padding: 10px;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 500;
-    width: 100%;
     text-align: center;
     @include hover-effect($color);
 }

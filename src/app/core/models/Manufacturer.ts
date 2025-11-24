@@ -5,4 +5,5 @@ export type Manufacturer  = {
     email: string;
     image?: string;
     city?: string;
+    description?: string;
 }
