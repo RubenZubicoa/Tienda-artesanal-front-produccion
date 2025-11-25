@@ -1,7 +1,7 @@
 <div class="section-container">
     <app-breadcrumbs></app-breadcrumbs>
-    <h1 class="tienda-title">Lista de productos de {{ manufacturer().name }}</h1>
-    <p class="tienda-text">{{ manufacturer().description }}</p>
+    <h1 class="tienda-title">Lista de productos de {{ manufacturer()?.name }}</h1>
+    <p class="tienda-text">{{ manufacturer()?.description }}</p>
     <div class="products-list-container">
         @for (card of cards(); track card.uuid) {
             <app-card [card]="card" [buttonText]="'Ver producto'" [buttonType]="'primary'" (click)="goToProductDetails(card)"></app-card>

@@ -12,21 +12,21 @@
   </div>
   @if (view() === 'list') {
   <div class="products-list-container">
-    @for (card of cards(); track card.title) {
+    @for (card of manufacturersCards(); track card.title) {
     <app-card
       [card]="card"
       [buttonText]="'Ver productos'"
-      (click)="goToManufacturersDetails(card)"
+      (click)="goToManufacturersDetails(card.uuid)"
     ></app-card>
     }
   </div>
   } @else {
-  <app-map [markers]="manufacturersLocations()"></app-map>
+  <app-map [markers]="manufacturersLocations()" (markerClick)="showManufacturersDetails($event)"></app-map>
   }
 </div>
 
 <ng-template #buttonToggleGroup>
-  <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+  <mat-button-toggle-group name="fontStyle" aria-label="Font Style" [value]="view()">
     <mat-button-toggle value="map" (click)="toggleView('map')"
       ><mat-icon>map</mat-icon></mat-button-toggle
     >

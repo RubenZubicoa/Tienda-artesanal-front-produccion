@@ -1,0 +1,9 @@
+<div class="manufacturers-dialog-container">
+  @if (manufacturerCard()) {
+  <app-card
+    [card]="manufacturerCard()!"
+    [buttonText]="'Ver productos'"
+    (click)="goToManufacturersDetails(manufacturerCard()!.uuid)"
+  ></app-card>
+  }
+</div>

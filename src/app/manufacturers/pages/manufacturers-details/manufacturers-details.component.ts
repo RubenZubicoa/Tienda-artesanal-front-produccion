@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, input } from '@angular/core';
+import { Component, computed, effect, inject, input, signal } from '@angular/core';
 import { Manufacturer } from '../../../core/models/Manufacturer';
 import { PRODUCTS_LIST } from '../../../core/data/products';
 import { CardComponent } from '../../../shared/components/card/card.component';
@@ -16,17 +16,18 @@ import { CardData, mapProductToCardData } from '../../../shared/components/card/
 })
 export class ManufacturersDetailsComponent {
  
-  public manufacturer = input.required<Manufacturer>();
+  public manufacturer = input<Manufacturer>();
   public route = inject(ActivatedRoute);
   public readonly router = inject(Router);
 
 
   public products: Product[] = [];
-  public cards = computed(() => this.products.map(mapProductToCardData));
+  public cards = signal<CardData[]>([]);
 
   constructor(){
     effect(() => {
-      this.products = PRODUCTS_LIST.filter(product => product.manufacturerId === this.manufacturer().uuid);
+      this.products = PRODUCTS_LIST.filter(product => product.manufacturerId === this.manufacturer()?.uuid);
+      this.cards.set(this.products.map(mapProductToCardData));
       console.log(this.products);
     });
   }
