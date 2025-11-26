@@ -66,7 +66,7 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
       position: { lat: marker.lat, lng: marker.lng },
       map: this.map,
       title: this.markerTitle,
-      draggable: true,
+      draggable: false,
     });
 
     markerElement.addListener('click', () => {
