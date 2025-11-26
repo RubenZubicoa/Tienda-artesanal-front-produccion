@@ -18,7 +18,7 @@ export function mapProductToCardData(product: Product): CardData {
     title: product.name,
     subtitle: product.manufacturer?.name,
     image: product.image,
-    perfilImage: product.manufacturerId,
+    perfilImage: product.manufacturer?.image,
     price: product.price,
     description: product.description,
   };

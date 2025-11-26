@@ -1,11 +1,13 @@
+@use 'sass:color' as color;
+
 $header-mobile-height: 12%;
 $header-desktop-height: 10%;
-$sidenav-mobile-height: 15%;
+$sidenav-mobile-height: 11%;
 $sidenav-desktop-width: 8%;
 
 $primary-color: rgb(88, 134, 88);
 $warning-color: rgb(177, 78, 78);
 $accent-color: #6c757d;
 $text-color: #000;
-$light-gray-color: #f8f3de;
+$light-gray-color: color.adjust($primary-color, $lightness: 40%);
 $white-color: #eeeeee;

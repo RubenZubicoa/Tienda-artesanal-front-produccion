@@ -8,6 +8,7 @@ header {
 main {
   width: 100%;
   height: calc(100vh - variables.$header-mobile-height);
+  border-top: 1px solid gray;
   display: flex;
   flex-direction: column;
   justify-content: start;
