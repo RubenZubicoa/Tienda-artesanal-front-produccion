@@ -12,12 +12,8 @@
         </div>
     </div>
     <div class="card-content">
-        <div class="card-image-container">
-            <img class="card-image" [src]="cardData.image">
-        </div>
-        <div class="card-content-text">
-            <p class="tienda-text" appTruncateText>{{ cardData.description }}</p>
-        </div>
+            <app-carrusel [images]="[cardData.image, cardData.image, cardData.image]"></app-carrusel>
+   
     </div>
     <div class="card-actions">
         @if (cardData.quantity) {

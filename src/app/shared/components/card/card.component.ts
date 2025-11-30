@@ -3,11 +3,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { CardData } from './card.models';
-import { TruncateTextDirective } from '../../directives/truncate-text.directive';
+import { CarruselComponent } from '../carrusel/carrusel.component';
 
 @Component({
   selector: 'app-card',
-  imports: [MatCardModule, MatButtonModule, CommonModule, TruncateTextDirective],
+  imports: [MatCardModule, MatButtonModule, CommonModule, CarruselComponent],
   templateUrl: './card.component.html',
   styleUrl: './card.component.scss'
 })
@@ -20,6 +20,6 @@ export class CardComponent {
   public click = output<CardData>();
 
   public onClick() {
-    this.click.emit(this.card());
+    // this.click.emit(this.card());
   }
 }

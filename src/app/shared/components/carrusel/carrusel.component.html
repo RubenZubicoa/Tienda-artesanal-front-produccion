@@ -1,0 +1,50 @@
+@if (totalItems() > 0) {
+  <div class="carrusel-container">
+    <div class="carrusel-wrapper">
+      <!-- Imagen actual -->
+      <div class="carrusel-image-container">
+        <img 
+          [src]="getCurrentImage()" 
+          [alt]="'Imagen ' + (currentIndex() + 1)"
+          class="carrusel-image"
+        />
+        
+        <!-- Botones de navegación -->
+        @if (showNavigation() && totalItems() > 1) {
+          <button 
+            class="carrusel-nav-button carrusel-nav-prev"
+            (click)="previous()"
+            aria-label="Imagen anterior"
+          >
+            <mat-icon>chevron_left</mat-icon>
+          </button>
+          <button 
+            class="carrusel-nav-button carrusel-nav-next"
+            (click)="next()"
+            aria-label="Imagen siguiente"
+          >
+            <mat-icon>chevron_right</mat-icon>
+          </button>
+        }
+      </div>
+
+      <!-- Indicadores -->
+      @if (showIndicators() && totalItems() > 1) {
+        <div class="carrusel-indicators">
+          @for (image of images(); track $index) {
+            <button
+              class="carrusel-indicator"
+              [class.active]="currentIndex() === $index"
+              (click)="goTo($index)"
+              [attr.aria-label]="'Ir a imagen ' + ($index + 1)"
+            ></button>
+          }
+        </div>
+      }
+    </div>
+  </div>
+} @else {
+  <div class="carrusel-empty">
+    <p>No hay imágenes para mostrar</p>
+  </div>
+}

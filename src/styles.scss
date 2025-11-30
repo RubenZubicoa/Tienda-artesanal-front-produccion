@@ -36,14 +36,9 @@ html,body {
 }
 
 .tienda-price-text {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   color: variables.$text-color;
-
-  &::before {
-    font-weight: 400;
-    color: variables.$text-color;
-  }
 }
 
 .section-container {
