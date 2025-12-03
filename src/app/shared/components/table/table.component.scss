@@ -2,6 +2,13 @@
 table {
   width: 100%;
   table-layout: fixed;
+  border-collapse: collapse;
+  background-color: white;
+}
+
+.paginator {
+  background-color: white;
+  border-top: 1px solid variables.$light-gray-color;
 }
 
 .mat-mdc-form-field {
