@@ -42,4 +42,9 @@ export const MANUFACTURERS_SECTIONS: Section[] = [
     icon: 'inventory',
     route: '/my-products',
   },
+  {
+    title: 'Análisis',
+    icon: 'analytics',
+    route: '/analysis',
+  }
 ]

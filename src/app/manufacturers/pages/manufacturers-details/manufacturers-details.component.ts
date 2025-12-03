@@ -28,7 +28,6 @@ export class ManufacturersDetailsComponent {
     effect(() => {
       this.products = PRODUCTS_LIST.filter(product => product.manufacturerId === this.manufacturer()?.uuid);
       this.cards.set(this.products.map(mapProductToCardData));
-      console.log(this.products);
     });
   }
 

@@ -1,0 +1,26 @@
+@use "../../../core/theming/variables.scss" as variables;
+table {
+  width: 100%;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td,
+th {
+  width: 25%;
+}
+
+.status-completed {
+  color: variables.$primary-color;
+}
+
+.status-pending {
+  color: variables.$warning-color;
+}
+
+.status-cancelled {
+  color: variables.$warning-color;
+}

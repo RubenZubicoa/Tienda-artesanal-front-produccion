@@ -31,5 +31,12 @@ export const routes: Routes = [
     data: {
       breadcrumb: 'Carrito de compras',
     },
-  }
+  },
+  {
+    path: 'orders',
+    loadChildren: () => import('./orders/orders.routes').then(m => m.ordersRoutes),
+    data: {
+      breadcrumb: 'Pedidos',
+    },
+  },
 ];
