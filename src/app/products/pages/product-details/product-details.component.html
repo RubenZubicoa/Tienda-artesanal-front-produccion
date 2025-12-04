@@ -2,7 +2,7 @@
   <app-breadcrumbs></app-breadcrumbs>
   <div class="product-details-container">
       <div class="product-details-image">
-        <img [src]="product().image" [alt]="product().name" class="product-image" />
+        <app-carrusel [images]="[product().image, product().image, product().image]"></app-carrusel>
       </div>
     <div class="product-details-content">
       <div class="product-details-content-title">

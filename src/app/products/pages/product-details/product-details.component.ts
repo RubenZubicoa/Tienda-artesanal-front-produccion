@@ -6,10 +6,11 @@ import { CarritoService } from '../../../carrito/services/carrito.service';
 import { MatInputModule } from '@angular/material/input';
 import { ToastService } from '../../../shared/components/toast/toast.service';
 import { ToastTypes } from '../../../shared/components/toast/toastData';
+import { CarruselComponent } from '../../../shared/components/carrusel/carrusel.component';
 
 @Component({
   selector: 'app-product-details',
-  imports: [CommonModule, BreadcrumbsComponent, MatInputModule],
+  imports: [CommonModule, BreadcrumbsComponent, MatInputModule, CarruselComponent],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss'
 })

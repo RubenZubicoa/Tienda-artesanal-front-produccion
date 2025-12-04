@@ -4,7 +4,7 @@
     <p class="tienda-text">{{ manufacturer()?.description }}</p>
     <div class="products-list-container">
         @for (card of cards(); track card.uuid) {
-            <app-card [card]="card" [buttonText]="'Ver producto'" [buttonType]="'primary'" (click)="goToProductDetails(card)"></app-card>
+            <app-card [card]="card" [buttonText]="'Ver producto'" [buttonType]="'primary'" (succesButtonClick)="goToProductDetails(card)"></app-card>
         }
     </div>
 </div>

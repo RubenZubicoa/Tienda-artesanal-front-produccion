@@ -4,7 +4,7 @@
     <h2 class="tienda-subtitle">Encuentra los mejores productos artesanales cerca de ti</h2>
     <div class="products-list-container">
         @for (card of cards(); track card.uuid) {
-            <app-card [card]="card" [buttonText]="'Ver producto'" [buttonType]="'primary'" (click)="goToProductDetails(card)"></app-card>
+            <app-card [card]="card" [buttonText]="'Ver producto'" [buttonType]="'primary'" (succesButtonClick)="goToProductDetails(card)"></app-card>
         }
     </div>
 </section>
