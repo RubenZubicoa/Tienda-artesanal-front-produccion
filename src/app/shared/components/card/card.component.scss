@@ -27,6 +27,12 @@
   }
 }
 
+.card-title{
+  font-weight: bold;
+  color: variables.$text-color;
+  font-size: 18px;
+}
+
 .card-header-image {
   height: 50px;
   width: 50px;

@@ -37,6 +37,8 @@
             width: 100px;
             background-color: variables.$light-gray-color;
             border-radius: 10px;
+            object-fit: cover;
+            aspect-ratio: 1/1;
         }
 
         .section-content {

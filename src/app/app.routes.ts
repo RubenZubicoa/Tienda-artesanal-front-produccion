@@ -13,7 +13,7 @@ export const routes: Routes = [
     path: 'manufacturers',
     loadChildren: () => import('./manufacturers/manufacturers.routes').then(m => m.manufacturersRoutes),
     data: {
-      breadcrumb: 'Vendedores',
+      breadcrumb: 'Artesanos',
     },
   },
   {

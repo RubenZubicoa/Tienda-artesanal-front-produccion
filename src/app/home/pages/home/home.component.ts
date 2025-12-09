@@ -18,15 +18,15 @@ export class HomeComponent {
 
   public sections: Section[] = [
     {
-      title: 'Vendedores',
+      title: 'Artesanos',
       description:
       'Encuentra los mejores vendedores de productos artesanales de la region',
-      image: 'https://picsum.photos/300/300',
+      image: 'https://cdn.pixabay.com/photo/2016/07/03/16/30/medieval-1495045_1280.jpg',
     },
     {
       title: 'Productos',
       description: 'Encuentra los mejores productos artesanales de la region',
-      image: 'https://picsum.photos/300/300',
+      image: 'https://cdn.pixabay.com/photo/2016/03/26/18/23/bread-1281053_1280.jpg',
     },
   ];
 

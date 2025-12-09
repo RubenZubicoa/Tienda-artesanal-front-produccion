@@ -7,7 +7,7 @@ export type Section = {
 
 export const SIDENAV_SECTIONS: Section[] = [
     {
-        title: 'Vendedores',
+        title: 'Artesanos',
         icon: 'store',
         route: '/manufacturers',
     },

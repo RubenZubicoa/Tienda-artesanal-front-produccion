@@ -19,13 +19,13 @@ html,body {
 
 .tienda-title {
   font-size: 20px;
-  font-weight: 500;
+  font-weight: bold;
   color: variables.$text-color;
 }
 
 .tienda-subtitle {
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 500;
   color: variables.$text-color;
 }
 
@@ -37,7 +37,7 @@ html,body {
 
 .tienda-price-text {
   font-size: 18px;
-  font-weight: 500;
+  font-weight: bold;
   color: variables.$text-color;
 }
 

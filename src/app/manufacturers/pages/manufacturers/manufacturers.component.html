@@ -3,7 +3,7 @@
 
   <div class="manufacturers-header-container">
     <div class="carrito-container-header">
-      <h1 class="tienda-title">Lista de vendedores</h1>
+      <h1 class="tienda-title">Lista de artesanos</h1>
       <h2 class="tienda-subtitle">
         Encuentra los mejores vendedores de productos artesanales cerca de ti
       </h2>
@@ -16,7 +16,7 @@
     <app-card
       [card]="card"
       [buttonText]="'Ver productos'"
-      (click)="goToManufacturersDetails(card.uuid)"
+      (succesButtonClick)="goToManufacturersDetails(card.uuid)"
     ></app-card>
     }
   </div>

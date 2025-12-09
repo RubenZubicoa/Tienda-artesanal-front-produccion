@@ -10,7 +10,7 @@
         @for (section of sections; track section.title) {
             <div class="section" (click)="navigateToSection(section)">
                 <div class="section-image">
-                    <img [src]="section.image" />
+                    <img [src]="section.image" [alt]="section.title" />
                 </div>
                 <div class="section-content">
                     <h3 class="tienda-title">{{ section.title }}</h3>

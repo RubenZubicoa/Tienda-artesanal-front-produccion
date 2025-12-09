@@ -11,7 +11,7 @@
     </div>
     <div class="products-list-container">
         @for (card of cards(); track card.uuid) {
-            <app-card [card]="card" [buttonText]="'Quitar del carrito'" [buttonType]="'warning'" (click)="removeProductFromCart(card)"></app-card>
+            <app-card [card]="card" [buttonText]="'Quitar del carrito'" [buttonType]="'warning'" (succesButtonClick)="removeProductFromCart(card)"></app-card>
         }
     </div>
 </section>
