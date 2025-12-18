@@ -22,25 +22,12 @@ export const ORDERS_COLUMNS: TableColumn[] = [
     field: 'address',
   },    
   {
-    header: 'Ciudad',
-    field: 'city',
-  },
-  {
-    header: 'Código postal',
-    field: 'zip',
-  },
-  {
     header: 'Total',
     field: 'total',
   },
   {
     header: 'Fecha de creación',
     field: 'createdAt',
-    type: 'date',
-  },
-  {
-    header: 'Fecha de actualización',
-    field: 'updatedAt',
     type: 'date',
   },
   {
