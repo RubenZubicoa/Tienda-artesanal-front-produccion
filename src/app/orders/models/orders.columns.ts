@@ -8,19 +8,7 @@ export const ORDERS_COLUMNS: TableColumn[] = [
   {
     header: 'Nombre',
     field: 'name',
-  },
-  {
-    header: 'Email',
-    field: 'email',
-  },
-  {
-    header: 'Teléfono',
-    field: 'phone',
-  },
-  {
-    header: 'Dirección',
-    field: 'address',
-  },    
+  },   
   {
     header: 'Total',
     field: 'total',
