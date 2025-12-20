@@ -1,11 +1,11 @@
-import { Component, computed, inject, signal } from '@angular/core';
-import { PRODUCTS_LIST } from '../../../core/data/products';
-import { Product } from '../../../core/models/Product';
+import { Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BreadcrumbsComponent } from '../../../shared/components/breadcrumbs/breadcrumbs.component';
 import { CardComponent } from '../../../shared/components/card/card.component';
 import { Router } from '@angular/router';
 import { CardData, mapProductToCardData } from '../../../shared/components/card/card.models';
+import { ProductsService } from '../../services/products.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-products',
@@ -15,8 +15,10 @@ import { CardData, mapProductToCardData } from '../../../shared/components/card/
 })
 export class ProductsComponent {
 
-  public products = signal<Product[]>(PRODUCTS_LIST);
-  public cards = computed(() => this.products().map(mapProductToCardData));
+  private readonly productsService = inject(ProductsService);
+
+  public products = toSignal(this.productsService.getProducts());
+  public cards = computed(() => this.products()?.map(mapProductToCardData) ?? []);
   public readonly router = inject(Router);
 
 

@@ -2,12 +2,40 @@ import { Manufacturer } from "./Manufacturer";
 
 export type Product = {
     uuid: string;
-    name: string;
     manufacturerId: Manufacturer['uuid'];
-    image: string;
-    price: number;
+    name: string;
     description?: string;
+    price: number;
+    stock: number;
+    category: string;
+    images: string[];
     manufacturer?: Manufacturer;
+}
+
+export type ProductDB = {
+    _id?: string;
+    manufacturerId: Manufacturer['uuid'];
+    name: string;
+    description?: string;
+    price: number;
+    stock: number;
+    category: string;
+    images: string[];
+    createdAt: number;
+    updatedAt?: number;
+}
+
+export const mapProductToProduct = (productDB: ProductDB): Product => {
+    return {
+        uuid: productDB._id ?? '',
+        manufacturerId: productDB.manufacturerId,
+        name: productDB.name,
+        description: productDB.description,
+        price: productDB.price,
+        stock: productDB.stock,
+        category: productDB.category,
+        images: productDB.images,
+    }
 }
 
 export function isProduct(product: unknown): product is Product {
