@@ -16,35 +16,56 @@ import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-manufacturers',
-  imports: [CardComponent, CommonModule, BreadcrumbsComponent, MatButtonToggleModule, MatIconModule, MapComponent, RouterModule, MatDialogModule  ],
+  imports: [
+    CardComponent,
+    CommonModule,
+    BreadcrumbsComponent,
+    MatButtonToggleModule,
+    MatIconModule,
+    MapComponent,
+    RouterModule,
+    MatDialogModule,
+  ],
   templateUrl: './manufacturers.component.html',
-  styleUrl: './manufacturers.component.scss'
+  styleUrl: './manufacturers.component.scss',
 })
-export class ManufacturersComponent {  
-  
+export class ManufacturersComponent {
   public view = signal<'map' | 'list'>('map');
-  
+
   private readonly router = inject(Router);
   private readonly dialog = inject(MatDialog);
   private readonly manufacturerService = inject(ManufacturerService);
-  
-  public manufacturers = toSignal(this.manufacturerService.getManufacturers());
-  public manufacturersCards = computed(() => this.manufacturers()?.map(mapManufacturerToCardData));
-  public manufacturersLocations = signal<MapMarker[]>([]);
- 
-  constructor(){
-    effect(() => {
-      this.manufacturers()?.forEach(manufacturer => {
-        getLocationFromAddress(manufacturer.address ?? '').then(location => {
-          manufacturer.latitude = location?.lat;
-          manufacturer.longitude = location?.lng;
-          this.manufacturersLocations.set([...this.manufacturersLocations(), {id: manufacturer.uuid, lat: location?.lat ?? 0, lng: location?.lng ?? 0 }]);
-        });
-      });
-    }, { allowSignalWrites: true })
 
+  public manufacturers = toSignal(this.manufacturerService.getManufacturers());
+  public manufacturersCards = computed(() =>
+    this.manufacturers()?.map(mapManufacturerToCardData)
+  );
+  public manufacturersLocations = signal<MapMarker[]>([]);
+
+  constructor() {
+    effect(
+      () => {
+        this.manufacturers()?.forEach((manufacturer) => {
+          getLocationFromAddress(manufacturer.address ?? '').then(
+            (location) => {
+              manufacturer.latitude = location?.lat;
+              manufacturer.longitude = location?.lng;
+              this.manufacturersLocations.set([
+                ...this.manufacturersLocations(),
+                {
+                  id: manufacturer.uuid,
+                  lat: location?.lat ?? 0,
+                  lng: location?.lng ?? 0,
+                },
+              ]);
+            }
+          );
+        });
+      },
+      { allowSignalWrites: true }
+    );
   }
-  
+
   public goToManufacturersDetails(manufacturerId: string) {
     this.router.navigate(['/manufacturers', manufacturerId]);
   }
@@ -54,10 +75,15 @@ export class ManufacturersComponent {
   }
 
   public showManufacturersDetails(manufacturerId: string) {
-    this.dialog.open(ManufacturersDialogComponent, {
-      data: {
-        manufacturerId: manufacturerId
-      }
-    });
+    const manufacturer = this.manufacturers()?.find(
+      (manufacturer) => manufacturer.uuid === manufacturerId
+    );
+    if (manufacturer) {
+      this.dialog.open(ManufacturersDialogComponent, {
+        data: {
+          manufacturer: manufacturer,
+        },
+      });
+    }
   }
 }

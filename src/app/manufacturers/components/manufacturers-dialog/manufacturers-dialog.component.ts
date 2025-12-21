@@ -1,10 +1,9 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Manufacturer } from '../../../core/models/Manufacturer';
-import { MANUFACTURERS_LIST } from '../../../core/data/manufacturers';
 import { CardComponent } from '../../../shared/components/card/card.component';
 import { CommonModule } from '@angular/common';
-import { CardData, mapManufacturerToCardData } from '../../../shared/components/card/card.models';
+import { mapManufacturerToCardData } from '../../../shared/components/card/card.models';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class ManufacturersDialogComponent implements OnInit {
   private readonly dialogRef = inject(MatDialogRef<ManufacturersDialogComponent>);
-  private readonly data = inject<{ manufacturerId: string }>(MAT_DIALOG_DATA);
+  private readonly data = inject<{ manufacturer: Manufacturer }>(MAT_DIALOG_DATA);
   private readonly router = inject(Router);
   
   public manufacturer = signal<Manufacturer | undefined>(undefined);
@@ -25,7 +24,7 @@ export class ManufacturersDialogComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.manufacturer.set(MANUFACTURERS_LIST.find(manufacturer => manufacturer.uuid === this.data.manufacturerId));
+    this.manufacturer.set(this.data.manufacturer);
   }
 
   public goToManufacturersDetails() {
