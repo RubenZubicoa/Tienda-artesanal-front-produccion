@@ -1,8 +1,34 @@
-<div class="order-data-container">
-    <h2 class="tienda-subtitle"><b>Datos del pedido:</b></h2>
-    <p class="tienda-text">Fecha del pedido: <b>{{ order().createdAt | date:'dd/MM/yyyy HH:mm' }}</b></p>
-    <p class="tienda-text">Estado del pedido: <b>{{ order().status }}</b></p>
-    <p class="tienda-text">Email: <b>{{ order().email }}</b></p>
-    <p class="tienda-text">Teléfono: <b>{{ order().phone }}</b></p>
-    <p class="tienda-text">Dirección: <b>{{ order().address }}</b></p>
-</div>
+@if (order(); as orderData) {
+  <div class="order-data-container">
+    <div class="order-data-header">
+      <h2 class="tienda-subtitle"><b>Datos del pedido:</b></h2>
+      <span class="order-status-badge" [class]="'status-' + orderData.status">
+        {{ getStatusLabel(orderData.status) }}
+      </span>
+    </div>
+
+    <div class="order-data-content">
+      <div class="data-section">
+        <div class="data-item">
+          <span class="data-label">Fecha del pedido</span>
+          <span class="data-value">{{ orderData.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+        </div>
+        
+        <div class="data-item">
+          <span class="data-label">Email</span>
+          <span class="data-value">{{ orderData.email }}</span>
+        </div>
+        
+        <div class="data-item">
+          <span class="data-label">Teléfono</span>
+          <span class="data-value">{{ orderData.phone }}</span>
+        </div>
+        
+        <div class="data-item data-item-full">
+          <span class="data-label">Dirección</span>
+          <span class="data-value">{{ orderData.address }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+}

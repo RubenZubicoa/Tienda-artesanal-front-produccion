@@ -1,0 +1,131 @@
+@use '../../../core/theming/variables.scss' as variables;
+
+.order-data-container {
+//   display: flex;
+//   flex-direction: column;
+  width: 100%;
+  border-radius: 10px;
+
+}
+
+.order-data-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  border-bottom: 2px solid variables.$light-primary-color-10;
+  width: 100%;
+}
+
+.order-status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+
+  &.status-pending {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffc107;
+  }
+
+  &.status-completed {
+    background-color: variables.$light-primary-color-10;
+    color: variables.$dark-gray-color;
+    border: 1px solid variables.$primary-color;
+  }
+
+  &.status-cancelled {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid variables.$warning-color;
+  }
+}
+
+.order-data-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.data-section {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.data-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px;
+  background-color: variables.$light-primary-color-10;
+  border-radius: 8px;
+  border-left: 3px solid variables.$primary-color;
+  border-bottom: 1px solid variables.$primary-color;
+}
+
+.data-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: variables.$accent-color;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.data-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: variables.$text-color;
+  word-break: break-word;
+}
+
+// Responsive design
+@media screen and (width < 768px) {
+  .order-data-container {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .order-data-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .order-data-title {
+    font-size: 1.25rem;
+  }
+
+  .data-section {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .data-item {
+    padding: 0.875rem;
+  }
+
+  .data-value {
+    font-size: 0.9375rem;
+  }
+}
+
+@media screen and (width >= 768px) and (width < 1024px) {
+  .data-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (width >= 1024px) {
+  .data-section {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
