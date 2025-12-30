@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { ManufacturersComponent } from './manufacturers/pages/manufacturers/manufacturers.component';
+import { manufacturerGuard } from './core/guards/manufacturer.guard';
 
 export const routes: Routes = [
   {
@@ -38,6 +38,7 @@ export const routes: Routes = [
     data: {
       breadcrumb: 'Mis productos',
     },
+    canActivate: [manufacturerGuard],
   },
   {
     path: 'orders',
@@ -45,6 +46,7 @@ export const routes: Routes = [
     data: {
       breadcrumb: 'Pedidos',
     },
+    canActivate: [manufacturerGuard],
   },
   // {
   //   path: 'analysis',

@@ -1,5 +1,5 @@
 @let sectionTemplate = section();
-<div class="section-button" [routerLink]="sectionTemplate.route" >
+<div class="section-button" [routerLink]="sectionTemplate.route"  [matMenuTriggerFor]="displayMenu() ? menu : null">
     <div class="icon" [routerLinkActive]="'active-icon'" [matBadge]="sectionTemplate.badge" matBadgePosition="above after">
       <mat-icon>{{sectionTemplate.icon}}</mat-icon>
     </div>
@@ -7,3 +7,14 @@
       {{sectionTemplate.title}}
     </span>
   </div>
+
+  <mat-menu #menu="matMenu">
+    <div class="header-buttons-menu">
+      @if (!currentUser()) {
+        <button class="tienda-primary-button" (click)="openMenu()">Iniciar sesión</button>
+        <button class="tienda-primary-button">Registrarse</button>
+      }@else if (currentUser()) {
+        <button class="tienda-primary-button" (click)="logout()">Cerrar sesión</button>
+      }
+    </div>
+  </mat-menu>

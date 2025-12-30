@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, input } from '@angular/core';
-import { Order } from '../../../core/models/Order';
+import { getStatusLabel, Order, OrderStatus } from '../../../core/models/Order';
 
 @Component({
   selector: 'app-order-data',
@@ -12,13 +12,8 @@ export class OrderDataComponent {
 
   public order = input.required<Order>();
 
-  getStatusLabel(status: 'pending' | 'completed' | 'cancelled'): string {
-    const statusLabels: Record<string, string> = {
-      'pending': 'Pendiente',
-      'completed': 'Completado',
-      'cancelled': 'Cancelado'
-    };
-    return statusLabels[status] || status;
+  getStatusLabel(status: OrderStatus): string {
+    return getStatusLabel(status);
   }
 
 }

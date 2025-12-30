@@ -11,6 +11,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ProductsService } from '../../../products/services/products.service';
 import { ToastTypes } from '../../../shared/components/toast/toastData';
 import { ToastService } from '../../../shared/components/toast/toast.service';
+import { CurrentUserService } from '../../../core/services/current-user.service';
 
 @Component({
   selector: 'app-my-products',
@@ -24,16 +25,21 @@ export class MyProductsComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
   private readonly productsService = inject(ProductsService);
   private readonly toastService = inject(ToastService);
+  private readonly currentUserService = inject(CurrentUserService);
 
   public products = signal<Product[]>([]);
   public cards = computed(() => this.products().map(mapProductToCardData));
 
   ngOnInit(): void {
-    this.getProducts();
+    if (this.currentUserService.isManufacturer()) {
+      this.getProducts();
+    } else {
+      this.toastService.showMessage(ToastTypes.ERROR, 'Error al obtener productos', 'No tienes un fabricante asociado, por favor contacta al administrador o inicia sesión como fabricante');
+    }
   }
 
   public getProducts() {
-    this.productsService.getProducts().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+    this.productsService.getProductsByManufacturer(this.currentUserService.currentUser()?.manufacturerId ?? '').pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (products) => {
         this.products.set(products);
       },

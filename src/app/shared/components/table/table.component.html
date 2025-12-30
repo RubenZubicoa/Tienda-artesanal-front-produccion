@@ -8,7 +8,7 @@
       <td mat-cell *matCellDef="let row" appTruncateText [maxLength]="50">
         @if (column.field === 'status') {
         <span class="status-{{ row.status }}">
-          {{ row.status }}
+          {{ getStatusLabel(row.status) }}
         </span>
         }@else { @if (column.type === 'date') {
         {{ row[column.field] | date : "dd/MM/yyyy" }}

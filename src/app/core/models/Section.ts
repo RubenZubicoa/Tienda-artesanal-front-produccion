@@ -3,6 +3,7 @@ export type Section = {
   icon: string;
   route: string;
   badge?: number;
+  menu?: boolean;
 };
 
 export const SIDENAV_SECTIONS: Section[] = [
@@ -22,7 +23,8 @@ export const HEADER_SECTIONS: Section[] = [
   {
     title: 'Perfil',
     icon: 'person',
-    route: '/profile',
+    route: '#',
+    menu: true,
   },
   {
     title: 'Carrito',

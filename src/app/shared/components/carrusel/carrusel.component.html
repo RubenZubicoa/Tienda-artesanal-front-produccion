@@ -10,7 +10,7 @@
         />
         
         <!-- Botones de navegación -->
-        @if (showNavigation() && totalItems() > 1) {
+        @if (showNavigation()) {
           <button 
             class="carrusel-nav-button carrusel-nav-prev"
             (click)="previous()"
@@ -29,7 +29,7 @@
       </div>
 
       <!-- Indicadores -->
-      @if (showIndicators() && totalItems() > 1) {
+      @if (showIndicators()) {
         <div class="carrusel-indicators">
           @for (image of images(); track $index) {
             <button

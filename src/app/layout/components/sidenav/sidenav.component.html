@@ -2,7 +2,9 @@
   @for (section of sections; track section.title) {
     <app-section-button [section]="section"></app-section-button>
   }
-  @for (section of manufacturersSections; track section.title) {
-    <app-section-button [section]="section"></app-section-button>
+  @if (isManufacturer()) {
+    @for (section of manufacturersSections; track section.title) {
+      <app-section-button [section]="section"></app-section-button>
+    }
   }
 </div>

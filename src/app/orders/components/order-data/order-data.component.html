@@ -10,6 +10,11 @@
     <div class="order-data-content">
       <div class="data-section">
         <div class="data-item">
+          <span class="data-label">Nombre del cliente</span>
+          <span class="data-value">{{ orderData.username }}</span>
+        </div>
+
+        <div class="data-item">
           <span class="data-label">Fecha del pedido</span>
           <span class="data-value">{{ orderData.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
         </div>
@@ -24,7 +29,7 @@
           <span class="data-value">{{ orderData.phone }}</span>
         </div>
         
-        <div class="data-item data-item-full">
+        <div class="data-item">
           <span class="data-label">Dirección</span>
           <span class="data-value">{{ orderData.address }}</span>
         </div>

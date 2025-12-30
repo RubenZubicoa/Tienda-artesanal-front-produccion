@@ -1,0 +1,18 @@
+<div class="login-dialog-container">
+  <div class="login-dialog-header">
+    <h1 class="tienda-title">Iniciar sesión</h1>
+  </div>
+  <div class="login-dialog-body">
+    <mat-form-field class="tienda-f-width">
+      <mat-label>Correo electrónico</mat-label>
+      <input matInput placeholder="Introduce tu correo electrónico" type="email" [formControl]="form.controls.email" />
+    </mat-form-field>
+    <mat-form-field class="tienda-f-width">
+      <mat-label>Contraseña</mat-label>
+      <input matInput placeholder="Introduce tu contraseña" type="password" [formControl]="form.controls.password" />
+    </mat-form-field>
+  </div>
+  <div class="login-dialog-footer">
+    <button class="tienda-primary-button" (click)="login()">Iniciar sesión</button>
+  </div>
+</div>

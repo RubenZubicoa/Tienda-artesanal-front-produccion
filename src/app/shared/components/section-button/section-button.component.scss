@@ -45,3 +45,10 @@
 
   @include mixins.hover-effect(variables.$primary-color, variables.$white-color);
 }
+
+.header-buttons-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0px 10px;
+}

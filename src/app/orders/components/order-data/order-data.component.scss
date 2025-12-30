@@ -85,10 +85,6 @@
   border-bottom: 1px solid variables.$primary-color;
   width: 100%;
   box-sizing: border-box;
-
-  &.data-item-full {
-    grid-column: 1 / -1;
-  }
 }
 
 .data-label {

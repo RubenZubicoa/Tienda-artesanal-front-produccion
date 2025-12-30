@@ -12,5 +12,8 @@ export const ordersRoutes: Routes = [
     resolve: {
       order: orderDetailsResolver,
     },
+    data: {
+      breadcrumb: 'Detalles del pedido'
+    }
   },
 ];

@@ -6,4 +6,5 @@ export const API_CONFIG = {
   ORDERS_URL: '/orders',
   USERS_URL: '/users',
   CATEGORIES_URL: '/categories',
+  LOGIN_URL: '/login',
 }

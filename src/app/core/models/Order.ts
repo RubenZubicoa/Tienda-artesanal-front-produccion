@@ -1,6 +1,8 @@
 import { Product } from './Product';
 import { Manufacturer } from './Manufacturer';
 
+export type OrderStatus = 'pending' | 'completed' | 'cancelled' | 'shipped' | 'delivered' | 'returned';
+
 export type Order = {
   uuid?: string;
   username: string;
@@ -16,7 +18,7 @@ export type Order = {
   manufacturerId: Manufacturer['uuid'];
   createdAt: number;
   updatedAt?: number;
-  status: 'pending' | 'completed' | 'cancelled';
+  status: OrderStatus;
 };
 
 export type OrderDB = {
@@ -32,7 +34,7 @@ export type OrderDB = {
       price: number;
   }[];
   manufacturerId: Manufacturer['uuid'];
-  status: string;
+  status: OrderStatus;
   createdAt: number;
   updatedAt?: number;
 }
@@ -50,8 +52,18 @@ export function mapOrderToOrder(orderDB: OrderDB): Order {
     email: orderDB.email,
     products: orderDB.products,
     manufacturerId: orderDB.manufacturerId,
-    status: orderDB.status as 'pending' | 'completed' | 'cancelled',
+    status: orderDB.status as OrderStatus,
     createdAt: orderDB.createdAt,
     updatedAt: orderDB.updatedAt,
   };
+}
+
+export function getStatusLabel(status: OrderStatus): string {
+  const statusLabels: Record<string, string> = {
+    'pending': 'Pendiente',
+    'completed': 'Completado',
+    'cancelled': 'Cancelado',
+    'shipped': 'Enviado',
+  };
+  return statusLabels[status] || status;
 }

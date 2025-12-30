@@ -7,7 +7,3 @@ export type TableColumn = {
 export type TableData<T> = {
   [K in keyof T]: T[K];
 };
-
-export type TableDataWithStatus<T> = TableData<T> & {
-  status?: 'completed' | 'pending' | 'cancelled';
-};

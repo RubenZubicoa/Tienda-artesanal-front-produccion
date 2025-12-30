@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
-import { TableColumn, TableDataWithStatus } from './table.models';
+import { TableColumn, TableData } from './table.models';
 import { DatePipe } from '@angular/common';
 import { TruncateTextDirective } from '../../directives/truncate-text.directive';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { getStatusLabel, OrderStatus } from '../../../core/models/Order';
 
 @Component({
   selector: 'app-table',
@@ -18,7 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
 export class TableComponent<T> {
 
   public columns = input<TableColumn[]>([]);
-  public data = input<TableDataWithStatus<T>[]>([]);
+  public data = input<TableData<T> []>([]);
   public showActions = input<boolean>(true);
   public detailsClick = output<T>();
   
@@ -39,5 +40,9 @@ export class TableComponent<T> {
 
   public details(element: T) {
     this.detailsClick.emit(element);
+  }
+
+  public getStatusLabel(status: OrderStatus): string {
+    return getStatusLabel(status);
   }
 }

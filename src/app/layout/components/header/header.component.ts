@@ -7,10 +7,11 @@ import { CarritoService } from '../../../carrito/services/carrito.service';
 import { RouterModule } from '@angular/router';
 import { SectionButtonComponent } from '../../../shared/components/section-button/section-button.component';
 import { HEADER_SECTIONS, Section } from '../../../core/models/Section';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-header',
-  imports: [MatFormFieldModule, MatInputModule, MatIconModule, MatBadgeModule, RouterModule, SectionButtonComponent],
+  imports: [MatFormFieldModule, MatInputModule, MatIconModule, MatBadgeModule, RouterModule, SectionButtonComponent, MatMenuModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })

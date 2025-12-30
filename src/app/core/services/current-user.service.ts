@@ -13,7 +13,9 @@ export class CurrentUserService {
     return this.user.asReadonly();
   }
 
-  public setCurrentUser(user: User) {
+  public setCurrentUser(user: User | undefined) {
     this.user.set(user);
   }
+
+
 }

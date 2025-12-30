@@ -30,7 +30,7 @@ export class OrdersComponent {
       return data.map((order) => ({
         ...order,
         total: order.products.reduce((acc, product) => acc + product.price * product.quantity, 0),
-      }));
+      }) as OrderTableData);
     })
   )
   public readonly orders = toSignal(this.orders$, { initialValue: [] as OrderTableData[] });
