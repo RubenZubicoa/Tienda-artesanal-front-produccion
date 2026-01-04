@@ -37,17 +37,20 @@ export class RegisterComponent {
   }
 
   public register(): void {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      this.toastService.showMessage(
-        ToastTypes.ERROR,
-        'Error de validación',
-        'Por favor, completa todos los campos requeridos correctamente'
-      );
-      return;
-    }
+    console.log(this.form.valid);
+    // if (this.form.invalid) {
+    //   this.form.markAllAsTouched();
+    //   this.toastService.showMessage(
+    //     ToastTypes.ERROR,
+    //     'Error de validación',
+    //     'Por favor, completa todos los campos requeridos correctamente'
+    //   );
+    //   return;
+    // }
 
     const formData = this.registerFormService.obtenerDatos(this.form);
+
+    console.log(formData);
 
     const registerData = {
       name: formData.name,
@@ -58,7 +61,8 @@ export class RegisterComponent {
         phone: formData.manufacturerPhone!,
         email: formData.email!,
         address: formData.manufacturerAddress!,
-        description: formData.manufacturerDescription
+        description: formData.manufacturerDescription,
+        image: formData.manufacturerImage
       } : undefined
     };
 

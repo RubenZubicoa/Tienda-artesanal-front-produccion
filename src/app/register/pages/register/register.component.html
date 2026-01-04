@@ -90,6 +90,11 @@
           <mat-label>Descripción (opcional)</mat-label>
           <textarea matInput [formControl]="form.controls.manufacturerDescription" placeholder="Describe tu negocio" rows="4"></textarea>
         </mat-form-field>
+
+        <mat-form-field appearance="outline" class="tienda-f-width">
+          <mat-label>URL de imagen (opcional)</mat-label>
+          <input matInput [formControl]="form.controls.manufacturerImage" placeholder="https://ejemplo.com/imagen.jpg" />
+        </mat-form-field>
       </div>
     </div>
 

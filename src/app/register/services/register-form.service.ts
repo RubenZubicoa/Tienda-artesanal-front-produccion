@@ -13,9 +13,9 @@ export type RegisterFormInput = {
   isManufacturer: boolean;
   manufacturerName?: string;
   manufacturerPhone?: string;
-  manufacturerEmail?: string;
   manufacturerAddress?: string;
   manufacturerDescription?: string;
+  manufacturerImage?: string;
 }
 
 type RegisterFormContent = {
@@ -29,9 +29,9 @@ type RegisterFormContent = {
   isManufacturer: FormControl<boolean | null>;
   manufacturerName: FormControl<string | null>;
   manufacturerPhone: FormControl<string | null>;
-  manufacturerEmail: FormControl<string | null>;
   manufacturerAddress: FormControl<string | null>;
   manufacturerDescription: FormControl<string | null>;
+  manufacturerImage: FormControl<string | null>;
 };
 
 export type RegisterForm = FormGroup<RegisterFormContent>;
@@ -53,9 +53,9 @@ export class RegisterFormService implements IServiceForm<RegisterFormInput, Regi
       isManufacturer: new FormControl(false),
       manufacturerName: new FormControl(null),
       manufacturerPhone: new FormControl(null),
-      manufacturerEmail: new FormControl(null),
       manufacturerAddress: new FormControl(null),
       manufacturerDescription: new FormControl(null),
+      manufacturerImage: new FormControl(null),
     });
 
     // Validación personalizada para confirmar contraseña
@@ -81,7 +81,6 @@ export class RegisterFormService implements IServiceForm<RegisterFormInput, Regi
       }
       form.get('manufacturerName')?.updateValueAndValidity();
       form.get('manufacturerPhone')?.updateValueAndValidity();
-      form.get('manufacturerEmail')?.updateValueAndValidity();
       form.get('manufacturerAddress')?.updateValueAndValidity();
     });
 

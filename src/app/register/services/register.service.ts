@@ -17,6 +17,7 @@ export type RegisterData = {
     email: string;
     address: string;
     description?: string;
+    image?: string;
   };
 }
 
@@ -36,7 +37,8 @@ export class RegisterService {
         phone: registerData.manufacturer.phone,
         email: registerData.manufacturer.email,
         address: registerData.manufacturer.address,
-        description: registerData.manufacturer.description
+        description: registerData.manufacturer.description,
+        image: registerData.manufacturer.image
       };
       return this.manufacturerService.createManufacturer(manufacturer).pipe(
         switchMap((rowInserted: InsertOneResult) => {
