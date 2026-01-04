@@ -1,0 +1,4 @@
+@let isLoading = loadingService.pendingRequests().length > 0;
+<div class="overlay" *ngIf="isLoading">
+    <div class="spinner"></div>
+</div>
