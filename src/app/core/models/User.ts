@@ -2,6 +2,7 @@ export type User = {
     uuid: string;
     name: string;
     email: string;
+    phone: string;
     password: string;
     manufacturerId?: string;
 }
@@ -10,6 +11,7 @@ export type UserDB = {
     _id?: string;
     name: string;
     email: string;
+    phone: string;
     password: string;
     manufacturerId?: string;
     createdAt?: number;
@@ -26,5 +28,6 @@ export function mapUserToUser(userDB: UserDB): User {
         email: userDB.email,
         password: userDB.password,
         manufacturerId: userDB.manufacturerId,
+        phone: userDB.phone,
     }
 }

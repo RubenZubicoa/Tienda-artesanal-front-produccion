@@ -21,6 +21,10 @@ export class OrdersService {
     return this.http.get<OrderDB>(this.url + '/' + orderId).pipe(map(mapOrderToOrder));
   }
 
+  getOrdersByEmail(email: string): Observable<Order[]> {
+    return this.http.get<OrderDB[]>(this.url + '/email/' + email).pipe(map(orders => orders.map(mapOrderToOrder)));
+  }
+
   getOrdersByManufacturer(manufacturerId: Manufacturer['uuid']): Observable<Order[]> {
     return this.http.get<OrderDB[]>(this.url + '/manufacturer/' + manufacturerId).pipe(map(orders => orders.map(mapOrderToOrder)));
   }

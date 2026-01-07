@@ -38,4 +38,8 @@ export class CarritoService {
       return acc;
     }, {} as Record<Manufacturer['uuid'], ProductCart[]>);
   }
+
+  public clearCart() {
+    this._carrito.set([]);
+  }
 }

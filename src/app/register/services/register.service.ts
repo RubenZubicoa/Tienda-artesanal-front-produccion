@@ -13,6 +13,7 @@ import { ToastTypes } from '../../shared/components/toast/toastData';
 export type RegisterData = {
   name: string;
   email: string;
+  phone: string;
   password: string;
   manufacturer?: {
     name: string;
@@ -67,6 +68,7 @@ export class RegisterService {
       name: registerData.name,
       email: registerData.email,
       password: registerData.password,
+      phone: registerData.phone,
     };
     this.updateUser( userId, userData).pipe(takeUntilDestroyed(destroyRef)).subscribe({
       next: () => {

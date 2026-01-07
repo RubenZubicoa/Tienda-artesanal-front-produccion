@@ -28,12 +28,24 @@
           <span class="data-label">Teléfono</span>
           <span class="data-value">{{ orderData.phone }}</span>
         </div>
-        
+        @if (!isTheManufacturer()) {
         <div class="data-item">
-          <span class="data-label">Dirección</span>
-          <span class="data-value">{{ orderData.address }}</span>
+          <span class="data-label">Nombre del artesano</span>
+          <span class="data-value">{{ manufacturer()?.name }}</span>
         </div>
+  
+        <div class="data-item">
+          <span class="data-label">Email del artesano</span>
+          <span class="data-value">{{ manufacturer()?.email }}</span>
+        </div>
+  
+        <div class="data-item">
+          <span class="data-label">Teléfono del artesano</span>
+            <span class="data-value">{{ manufacturer()?.phone }}</span>
+          </div>
+        }
       </div>
     </div>
+
   </div>
 }

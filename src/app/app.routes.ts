@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { manufacturerGuard } from './core/guards/manufacturer.guard';
+import { userGuard } from './core/guards/user.guard';
 
 export const routes: Routes = [
   {
@@ -54,6 +55,14 @@ export const routes: Routes = [
       breadcrumb: 'Pedidos',
     },
     canActivate: [manufacturerGuard],
+  },
+  {
+    path: 'my-orders',
+    loadChildren: () => import('./my-orders/my-orders.routes').then(m => m.myOrdersRoutes),
+    data: {
+      breadcrumb: 'Mis pedidos',
+    },
+    canActivate: [userGuard],
   },
   // {
   //   path: 'analysis',

@@ -42,6 +42,7 @@ export type OrderDB = {
 export type AddOrder = Omit<Order, 'uuid' | 'createdAt' | 'updatedAt' | 'status'>;
 export type UpdateOrder = Omit<Order, 'uuid' | 'createdAt' | 'updatedAt'>;
 
+export type OrderTableData = Order & {total: number}
 
 export function mapOrderToOrder(orderDB: OrderDB): Order {
   return {

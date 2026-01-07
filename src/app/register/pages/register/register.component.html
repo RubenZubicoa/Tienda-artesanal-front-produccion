@@ -1,8 +1,7 @@
 <div class="section-container">
-  <app-breadcrumbs></app-breadcrumbs>
   <div class="register-header">
-    <h1 class="tienda-title">Registro de usuario y artesano</h1>
-    <h2 class="tienda-subtitle">Completa los siguientes campos para crear tu cuenta y si lo deseas, también puedes registrar tu negocio</h2>
+    <h1 class="tienda-title">{{ isUpdateMode() ? 'Actualizar cuenta' : 'Registro de usuario y artesano' }}</h1>
+    <h2 class="tienda-subtitle">{{ isUpdateMode() ? 'Completa los siguientes campos para actualizar tu cuenta' : 'Completa los siguientes campos para crear tu cuenta y si lo deseas, también puedes registrar tu negocio' }}</h2>
   </div>
 
   <form [formGroup]="form" class="register-form">
@@ -15,6 +14,14 @@
           <input matInput type="text" [formControl]="form.controls.name" placeholder="Introduce tu nombre completo" />
           <mat-error *ngIf="form.controls.name.hasError('required') && form.controls.name.touched">
             El nombre es requerido
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="tienda-f-width">
+          <mat-label>Teléfono</mat-label>
+          <input matInput type="tel" [formControl]="form.controls.phone" placeholder="Introduce tu número de teléfono" />
+          <mat-error *ngIf="form.controls.phone.hasError('required') && form.controls.phone.touched">
+            El teléfono es requerido
           </mat-error>
         </mat-form-field>
 
@@ -50,6 +57,7 @@
             Las contraseñas no coinciden
           </mat-error>
         </mat-form-field>
+
       </div>
     </div>
 
@@ -102,7 +110,7 @@
 
     <div class="register-footer">
       <button type="button" class="tienda-primary-button" (click)="register()">
-        Registrarse
+        {{ isUpdateMode() ? 'Actualizar' : 'Registrarse' }}
       </button>
     </div>
   </form>

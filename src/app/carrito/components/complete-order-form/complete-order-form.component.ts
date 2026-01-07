@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CompleteOrderFormService } from '../../services/complete-order-form.service';
@@ -11,6 +11,8 @@ import { CarritoService } from '../../services/carrito.service';
 import { AddOrder, Order } from '../../../core/models/Order';
 import { OrdersService } from '../../../orders/services/orders.service';
 import { ProductCart } from '../../../core/models/Product';
+import { CurrentUserService } from '../../../core/services/current-user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-complete-order-form',
@@ -18,14 +20,28 @@ import { ProductCart } from '../../../core/models/Product';
   templateUrl: './complete-order-form.component.html',
   styleUrl: './complete-order-form.component.scss'
 })
-export class CompleteOrderFormComponent {
+export class CompleteOrderFormComponent implements OnInit {
 
   private readonly completeOrderFormService = inject(CompleteOrderFormService);
   private readonly toasterService = inject(ToastService);
   private readonly carritoService = inject(CarritoService);
   private readonly ordersService = inject(OrdersService);
-  
+  private readonly currentUserService = inject(CurrentUserService);
+  private readonly router = inject(Router);
+
   public form = this.completeOrderFormService.crearFormulario();
+
+  ngOnInit(): void {
+    const currentUser = this.currentUserService.currentUser();
+    if (currentUser) {
+      this.form.patchValue({
+        name: currentUser.name,
+        email: currentUser.email,
+        phone: currentUser.phone,
+      });
+      this.form.disable();
+    }
+  }
 
   public completeOrder(): void {
     const productsByManufacturer = this.carritoService.getProductsCartByManufacturer();
@@ -52,6 +68,8 @@ export class CompleteOrderFormComponent {
     this.ordersService.createOrder(order).subscribe({
       next: () => {
         this.toasterService.showMessage(ToastTypes.SUCCESS, 'Pedido completado', 'El pedido ha sido completado correctamente');
+        this.carritoService.clearCart();
+        this.router.navigate(['/my-orders']);
       },
       error: () => {
         this.toasterService.showMessage(ToastTypes.ERROR, 'Error al completar pedido', 'El pedido no ha sido completado correctamente');

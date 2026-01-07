@@ -14,7 +14,8 @@
         <button class="tienda-primary-button" (click)="openMenu()">Iniciar sesión</button>
         <button class="tienda-primary-button" (click)="navigateToRegister()">Registrarse</button>
       }@else if (currentUser()) {
-        <button class="tienda-primary-button" (click)="navigateToRegister()">Editar usuario</button>
+        <button class="tienda-primary-button" (click)="navigateToOrders()">Mis pedidos</button>
+        <button class="tienda-primary-button" (click)="navigateToRegister()">Perfil</button>
         <button class="tienda-primary-button" (click)="logout()">Cerrar sesión</button>
       }
     </div>

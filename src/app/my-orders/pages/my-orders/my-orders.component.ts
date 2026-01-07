@@ -1,31 +1,28 @@
 import { Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { Router } from '@angular/router';
+import { map } from 'rxjs';
+import { CurrentUserService } from '../../../core/services/current-user.service';
+import { ORDERS_COLUMNS } from '../../../orders/models/orders.columns';
+import { OrdersService } from '../../../orders/services/orders.service';
+import { OrderTableData } from '../../../core/models/Order';
 import { CommonModule } from '@angular/common';
 import { BreadcrumbsComponent } from '../../../shared/components/breadcrumbs/breadcrumbs.component';
 import { TableComponent } from '../../../shared/components/table/table.component';
-import { ORDERS_COLUMNS } from '../../models/orders.columns';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { OrdersService } from '../../services/orders.service';
-import { CurrentUserService } from '../../../core/services/current-user.service';
-import { map } from 'rxjs';
-import { OrderTableData } from '../../../core/models/Order';
-import { Router } from '@angular/router';
-
-
 
 @Component({
-  selector: 'app-orders',
+  selector: 'app-my-orders',
   imports: [CommonModule, BreadcrumbsComponent, TableComponent],
-  templateUrl: './orders.component.html',
-  styleUrl: './orders.component.scss'
+  templateUrl: './my-orders.component.html',
+  styleUrl: './my-orders.component.scss'
 })
-export class OrdersComponent {
-
+export class MyOrdersComponent {
   private readonly ordersService = inject(OrdersService);
   private readonly currentUserService = inject(CurrentUserService);
   private readonly router = inject(Router);
 
   public readonly columns = ORDERS_COLUMNS;
-  public orders$ = this.ordersService.getOrdersByManufacturer(this.currentUserService.currentUser()?.manufacturerId ?? '').pipe(
+  public orders$ = this.ordersService.getOrdersByEmail(this.currentUserService.currentUser()?.email ?? '').pipe(
     map((data) => {
       return data.map((order) => ({
         ...order,
@@ -38,6 +35,4 @@ export class OrdersComponent {
   public goToOrderDetails(order: OrderTableData) {
     this.router.navigate(['/orders', order.uuid]);
   }
-
-
 }

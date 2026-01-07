@@ -44,4 +44,8 @@ export class SectionButtonComponent {
   public navigateToRegister() {
     this.router.navigate(['/register']);
   }
+
+  public navigateToOrders() {
+    this.router.navigate(['/my-orders']);
+  }
 }

@@ -61,6 +61,7 @@ export class RegisterComponent {
           password: user.password,
           confirmPassword: user.password,
           isManufacturer: user.manufacturerId !== undefined,
+          phone: user.phone,
         };
         if (manufacturer) {
           formInput.manufacturerName = manufacturer.name;
@@ -97,10 +98,11 @@ export class RegisterComponent {
 
     const formData = this.registerFormService.obtenerDatos(this.form);
 
-    const registerData = {
+    const registerData: RegisterData = {
       name: formData.name,
       email: formData.email,
       password: formData.password,
+      phone: formData.phone,
       manufacturer: this.isManufacturer ? {
         name: formData.manufacturerName!,
         phone: formData.manufacturerPhone!,

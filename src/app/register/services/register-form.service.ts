@@ -8,6 +8,7 @@ export type RegisterFormInput = {
   email: string;
   password: string;
   confirmPassword: string;
+  phone: string;
   
   // Manufacturer (opcional)
   isManufacturer: boolean;
@@ -24,6 +25,7 @@ type RegisterFormContent = {
   email: FormControl<string | null>;
   password: FormControl<string | null>;
   confirmPassword: FormControl<string | null>;
+  phone: FormControl<string | null>;
   
   // Manufacturer (opcional)
   isManufacturer: FormControl<boolean | null>;
@@ -48,7 +50,7 @@ export class RegisterFormService implements IServiceForm<RegisterFormInput, Regi
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
       confirmPassword: new FormControl(null, [Validators.required]),
-      
+      phone: new FormControl(null, [Validators.required]),
       // Manufacturer
       isManufacturer: new FormControl(false),
       manufacturerName: new FormControl(null),
