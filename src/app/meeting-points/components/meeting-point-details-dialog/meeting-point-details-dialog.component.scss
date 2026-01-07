@@ -1,0 +1,21 @@
+.meeting-point-details-dialog-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    padding: 10px;
+    width: 40vw;
+    gap: 20px;
+}
+
+.meeting-point-details-dialog-container-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+}
+.map-container {
+    width: 100%;
+    height: 100%;
+    display: block;
+}

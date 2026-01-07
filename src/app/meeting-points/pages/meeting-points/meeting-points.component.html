@@ -7,5 +7,5 @@
         </div>
         <button mat-raised-button class="tienda-primary-button">Agregar punto de encuentro</button>
     </div>
-    <app-table [columns]="columns" [data]="meetingPoints()"></app-table>
+    <app-table [columns]="columns" [data]="meetingPoints()" (detailsClick)="openMeetingPointDetailsDialog($event)"></app-table>
 </section>

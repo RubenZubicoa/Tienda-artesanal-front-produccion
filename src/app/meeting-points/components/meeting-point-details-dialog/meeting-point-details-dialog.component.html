@@ -1,0 +1,10 @@
+<div class="meeting-point-details-dialog-container">
+    <div class="meeting-point-details-dialog-container-header">
+        <h1 class="tienda-title">Detalles del punto de encuentro</h1>
+        <p class="tienda-text"><b>{{ data.meetingPoint.name }}</b></p>
+        <p class="tienda-text">{{ data.meetingPoint.description }}</p>
+    </div>
+     <div class="map-container">
+        <app-map [latitude]="data.meetingPoint.location.latitude" [longitude]="data.meetingPoint.location.longitude" [markers]="[marker]" [zoom]="17"></app-map>
+    </div>
+</div>

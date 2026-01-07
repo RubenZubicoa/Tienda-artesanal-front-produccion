@@ -56,6 +56,7 @@ export class ManufacturersComponent {
                   id: manufacturer.uuid,
                   lat: location?.lat ?? 0,
                   lng: location?.lng ?? 0,
+                  isClickable: true,
                 },
               ]);
             }
