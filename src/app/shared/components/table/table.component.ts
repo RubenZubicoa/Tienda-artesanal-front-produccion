@@ -21,7 +21,12 @@ export class TableComponent<T> {
   public columns = input<TableColumn[]>([]);
   public data = input<TableData<T> []>([]);
   public showActions = input<boolean>(true);
+  public showDetails = input<boolean>(true);
+  public showDelete = input<boolean>(false);
+  public showEdit = input<boolean>(false);
   public detailsClick = output<T>();
+  public deleteClick = output<T>();
+  public editClick = output<T>();
   
   @ViewChild(MatPaginator) public paginator!: MatPaginator;
   @ViewChild(MatSort) public sort!: MatSort;
@@ -40,6 +45,14 @@ export class TableComponent<T> {
 
   public details(element: T) {
     this.detailsClick.emit(element);
+  }
+
+  public deleteElement(element: T) {
+    this.deleteClick.emit(element);
+  }
+
+  public editElement(element: T) {
+    this.editClick.emit(element);
   }
 
   public getStatusLabel(status: OrderStatus): string {

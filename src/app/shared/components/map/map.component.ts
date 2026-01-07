@@ -60,6 +60,10 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
     };
 
     this.map = new google.maps.Map(this.mapContainer.nativeElement, mapOptions);
+
+    this.map.addListener('click', (event: any) => {
+      this.mapClick.emit({ lat: event.latLng.lat(), lng: event.latLng.lng() });
+    });
   }
 
   private addMarker(marker: MapMarker): void {

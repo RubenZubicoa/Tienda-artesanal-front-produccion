@@ -22,8 +22,8 @@ export class MeetingPointsService {
     return this.http.post<InsertOneResult>(this.url, meetingPoint);
   }
 
-  updateMeetingPoint(meetingPoint: UpdateMeetingPointDB): Observable<void> {
-    return this.http.put<void>(this.url, meetingPoint);
+  updateMeetingPoint(meetingPointId: MeetingPoint['uuid'], meetingPoint: UpdateMeetingPointDB): Observable<void> {
+    return this.http.put<void>(this.url + '/' + meetingPointId, meetingPoint);
   }
 
   deleteMeetingPoint(meetingPointId: MeetingPoint['uuid']): Observable<void> {

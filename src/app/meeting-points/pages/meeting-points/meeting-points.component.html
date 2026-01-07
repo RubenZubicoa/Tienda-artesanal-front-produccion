@@ -1,11 +1,28 @@
 <section class="section-container">
-    <app-breadcrumbs></app-breadcrumbs>
-    <div class="meeting-points-header-container">
-        <div class="meeting-points-header-container-title">
-            <h1 class="tienda-title">Puntos de encuentro</h1>
-            <h2 class="tienda-subtitle">Aquí puedes ver tus puntos de encuentro para que los usuarios puedan encontrarte físicamente y realizar el pago de sus pedidos.</h2>
-        </div>
-        <button mat-raised-button class="tienda-primary-button">Agregar punto de encuentro</button>
+  <app-breadcrumbs></app-breadcrumbs>
+  <div class="meeting-points-header-container">
+    <div class="meeting-points-header-container-title">
+      <h1 class="tienda-title">Puntos de encuentro</h1>
+      <h2 class="tienda-subtitle">
+        Aquí puedes ver tus puntos de encuentro para que los usuarios puedan
+        encontrarte físicamente y realizar el pago de sus pedidos.
+      </h2>
     </div>
-    <app-table [columns]="columns" [data]="meetingPoints()" (detailsClick)="openMeetingPointDetailsDialog($event)"></app-table>
+    <button
+      mat-raised-button
+      class="tienda-primary-button"
+      (click)="openMeetingPointFormDialog()"
+    >
+      Agregar punto de encuentro
+    </button>
+  </div>
+  <app-table
+    [columns]="columns"
+    [data]="meetingPoints()"
+    [showDelete]="true"
+    [showEdit]="true"
+    (detailsClick)="openMeetingPointDetailsDialog($event)"
+    (deleteClick)="deleteMeetingPoint($event)"
+    (editClick)="openMeetingPointFormDialog($event)"
+  ></app-table>
 </section>

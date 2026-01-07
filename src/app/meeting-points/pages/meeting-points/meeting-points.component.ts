@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BreadcrumbsComponent } from '../../../shared/components/breadcrumbs/breadcrumbs.component';
 import { TableComponent } from '../../../shared/components/table/table.component';
@@ -11,6 +11,8 @@ import { ToastTypes } from '../../../shared/components/toast/toastData';
 import { ToastService } from '../../../shared/components/toast/toast.service';
 import { MeetingPointDetailsDialogComponent } from '../../components/meeting-point-details-dialog/meeting-point-details-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MeetingPointFormDialogComponent } from '../../components/meeting-point-form-dialog/meeting-point-form-dialog.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-meeting-points',
@@ -23,6 +25,7 @@ export class MeetingPointsComponent implements OnInit {
   private readonly currentUserService = inject(CurrentUserService);
   private readonly toastService = inject(ToastService);
   private readonly dialog = inject(MatDialog);
+  private readonly destroyRef = inject(DestroyRef);
 
   public readonly columns = MEETING_POINTS_COLUMNS;
   public meetingPoints = signal<MeetingPoint[]>([]);
@@ -38,16 +41,46 @@ export class MeetingPointsComponent implements OnInit {
   public openMeetingPointDetailsDialog(meetingPoint: MeetingPoint) {
     this.dialog.open(MeetingPointDetailsDialogComponent, {
       data: { meetingPoint },
+      width: '80vw',
+      height: '90vh',
+    });
+  }
+
+  public openMeetingPointFormDialog(meetingPoint?: MeetingPoint) {
+    const dialogRef = this.dialog.open(MeetingPointFormDialogComponent, {
+      data: { meetingPoint },
+      width: '80vw',
+      height: '90vh',
+    });
+    dialogRef.afterClosed().pipe(takeUntilDestroyed(this.destroyRef)).subscribe((result) => {
+      if (result) {
+        this.getMeetingPoints();
+      }
+    });
+  }
+
+  public deleteMeetingPoint(meetingPoint: MeetingPoint) {
+    console.log(meetingPoint);
+    const confirmed = confirm('¿Estás seguro de querer eliminar este punto de encuentro?');
+    if (!confirmed) {
+      return;
+    }
+    this.meetingPointsService.deleteMeetingPoint(meetingPoint.uuid).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      next: () => {
+        this.getMeetingPoints();
+      },
     });
   }
 
   private getMeetingPoints(){
     this.meetingPointsService.getMeetingPointsByManufacturer(this.currentUserService.currentManufacturer()?.uuid ?? '').pipe(
-      map((data) => data.map(mapMeetingPointToMeetingPoint))
+      takeUntilDestroyed(this.destroyRef)
     ).subscribe({
       next: (data) => {
         this.meetingPoints.set(data);
       },
     });
   }
+
+
 }

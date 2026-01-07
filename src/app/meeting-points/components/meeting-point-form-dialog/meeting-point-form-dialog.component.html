@@ -1,0 +1,21 @@
+<div class="meeting-point-details-dialog-container">
+    <div class="meeting-point-details-dialog-container-header">
+        <h1 class="tienda-title">Agregar punto de encuentro</h1>
+        <div class="meeting-point-form-dialog-container-form">
+            <mat-form-field appearance="outline" class="form-control tienda-f-width">
+                <mat-label>Nombre</mat-label>
+                <input matInput type="text" [formControl]="form.controls.name"/>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-control tienda-f-width">
+                <mat-label>Descripción</mat-label>
+                <input matInput type="text" [formControl]="form.controls.description"/>
+            </mat-form-field>
+        </div>
+    </div>
+     <div class="map-container">
+        <app-map [markers]="marker() ? [marker()!] : []" [zoom]="17" (mapClick)="onMapClick($event)"></app-map>
+    </div>
+    <div class="meeting-point-form-dialog-container-buttons">
+        <button mat-raised-button class="tienda-primary-button tienda-f-width" (click)="saveMeetingPoint()">Guardar punto de encuentro</button>
+    </div>
+</div>

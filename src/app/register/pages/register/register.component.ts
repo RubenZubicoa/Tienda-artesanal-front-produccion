@@ -10,7 +10,6 @@ import { RegisterFormInput, RegisterFormService } from '../../services/register-
 import { RegisterData, RegisterService } from '../../services/register.service';
 import { ToastService } from '../../../shared/components/toast/toast.service';
 import { ToastTypes } from '../../../shared/components/toast/toastData';
-import { BreadcrumbsComponent } from '../../../shared/components/breadcrumbs/breadcrumbs.component';
 import { ManufacturerService } from '../../../manufacturers/services/manufacturer.service';
 import { CurrentUserService } from '../../../core/services/current-user.service';
 import { Manufacturer } from '../../../core/models/Manufacturer';
@@ -25,7 +24,6 @@ import { User } from '../../../core/models/User';
     MatInputModule,
     MatButtonModule,
     MatCheckboxModule,
-    BreadcrumbsComponent
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'

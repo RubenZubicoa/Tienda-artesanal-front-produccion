@@ -12,7 +12,7 @@ export type MeetingPoint = {
 }
 
 export type MeetingPointDB = {
-    uuid: string;
+    _id: string;
     name: string;
     location: {
         latitude: number;
@@ -23,12 +23,12 @@ export type MeetingPointDB = {
     isDeleted?: boolean;
 }
 
-export type AddMeetingPointDB = Omit<MeetingPointDB, 'uuid' | 'isDeleted'>;
-export type UpdateMeetingPointDB = Omit<MeetingPointDB, 'uuid' | 'isDeleted'>;
+export type AddMeetingPointDB = Omit<MeetingPointDB, '_id' | 'isDeleted'>;
+export type UpdateMeetingPointDB = Omit<MeetingPointDB, '_id' | 'isDeleted'>;
 
 export const mapMeetingPointToMeetingPoint = (meetingPointDB: MeetingPointDB): MeetingPoint => {
     return {
-        uuid: meetingPointDB.uuid,
+        uuid: meetingPointDB._id,
         name: meetingPointDB.name,
         location: meetingPointDB.location,
         manufacturerId: meetingPointDB.manufacturerId,
