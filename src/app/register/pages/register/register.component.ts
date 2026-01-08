@@ -132,8 +132,6 @@ export class RegisterComponent {
   }
 
   private update(userId: User['uuid'], manufacturerId: Manufacturer['uuid'], registerData: RegisterData){
-    delete (registerData as any).password;
-    delete (registerData as any).confirmPassword;
     this.registerService.update(userId, manufacturerId, registerData, this.destroyRef);
   }
 }

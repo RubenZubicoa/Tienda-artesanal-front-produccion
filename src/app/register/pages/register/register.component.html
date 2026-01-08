@@ -36,7 +36,7 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="tienda-f-width" *ngIf="!isUpdateMode()">
+        <mat-form-field appearance="outline" class="tienda-f-width" >
           <mat-label>Contraseña</mat-label>
           <input matInput type="password" [formControl]="form.controls.password" placeholder="Introduce tu contraseña" />
           <mat-error *ngIf="form.controls.password.hasError('required') && form.controls.password.touched">
@@ -47,7 +47,7 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="tienda-f-width" *ngIf="!isUpdateMode()">
+        <mat-form-field appearance="outline" class="tienda-f-width">
           <mat-label>Confirmar contraseña</mat-label>
           <input matInput type="password" [formControl]="form.controls.confirmPassword" placeholder="Confirma tu contraseña" />
           <mat-error *ngIf="form.controls.confirmPassword.hasError('required') && form.controls.confirmPassword.touched">
