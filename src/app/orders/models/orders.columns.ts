@@ -10,6 +10,10 @@ export const ORDERS_COLUMNS: TableColumn[] = [
     field: 'phone',
   },
   {
+    header: 'Email',
+    field: 'email',
+  },
+  {
     header: 'Total',
     field: 'total',
     type: 'currency',

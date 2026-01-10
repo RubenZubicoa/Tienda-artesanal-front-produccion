@@ -4,6 +4,7 @@ import { API_CONFIG } from '../../core/config/api.config';
 import { AddOrder, Order, OrderDB, OrderFilters, UpdateOrder, mapOrderToOrder } from '../../core/models/Order';
 import { map, Observable } from 'rxjs';
 import { Manufacturer } from '../../core/models/Manufacturer';
+import { mapperOnlyPropertiesWithValue } from '../../shared/utils/resquet-body-map';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,11 @@ export class OrdersService {
   }
 
   getOrdersByFilters(filters: OrderFilters): Observable<Order[]> {
-    return this.http.post<OrderDB[]>(this.url + '/criteria', filters).pipe(map(orders => orders.map(mapOrderToOrder)));
+    const filteredFilters = mapperOnlyPropertiesWithValue(filters);
+    if (filters.createdAt && filters.createdAt.start === null && filters.createdAt.end === null) {
+      delete filteredFilters.createdAt;
+    }
+    return this.http.post<OrderDB[]>(this.url + '/criteria', filteredFilters).pipe(map(orders => orders.map(mapOrderToOrder)));
   }
 
   getOrder(orderId: Order['uuid']): Observable<Order> {

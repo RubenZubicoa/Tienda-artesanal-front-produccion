@@ -8,12 +8,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-order-filters',
-  imports: [CommonModule, FiltersContainerComponent, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatSelectModule],
+  imports: [CommonModule, FiltersContainerComponent, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule,],
   templateUrl: './order-filters.component.html',
-  styleUrl: './order-filters.component.scss'
+  styleUrl: './order-filters.component.scss',
+  providers: [provideNativeDateAdapter()],
 })
 export class OrderFiltersComponent {
   public readonly formService = inject(OrderFiltersFormService);
@@ -35,7 +38,8 @@ export class OrderFiltersComponent {
 
   clearFiltersClick() {
     this.formService.reset(this.formService.form);
-    this.applyFiltersClick();
+    this.filters = undefined;
+    this.applyFilters.emit({});
   }
 
   removeFilter(filters: OrderFilters | undefined) {

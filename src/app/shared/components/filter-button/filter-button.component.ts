@@ -12,7 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-filter-button',
   standalone: true,
-  imports: [CommonModule, MatMenuModule, MatDividerModule, OverlayModule, MatTooltipModule, MatIconModule, MatButtonModule],
+  imports: [CommonModule, MatMenuModule, MatDividerModule, OverlayModule, MatTooltipModule, MatIconModule],
   templateUrl: './filter-button.component.html',
   styleUrl: './filter-button.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

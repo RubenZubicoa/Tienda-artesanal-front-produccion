@@ -1,6 +1,7 @@
+@use '../../../core/theming/variables.scss' as variables;
 .clear-chip {
   cursor: pointer;
-  background-color: var(--primary-color-white);
+  background-color: variables.$light-primary-color-10;
   outline: 1px solid black;
   font-size: 16px !important;
   padding: 0px !important;
@@ -8,6 +9,34 @@
   text-wrap: auto;
 
   .text-clear-chip {
-    color: #348466;
+    color: variables.$primary-color;
   }
+}
+
+.adif-header__environment-chip {
+  height: 16px !important;
+  background-color: var(--secondary-color--dark-green) !important;
+  align-self: baseline;
+  padding: 0 !important;
+  margin-left: 8px;
+
+  &--text {
+    color: var(--primary-color-white);
+    font-size: 11px;
+    font-weight: bold;
+  }
+}
+
+.adif-chip-background {
+  background-color: white !important;
+  outline: none !important;
+  border: none !important;
+}
+
+.adif-chip {
+  @extend .adif-chip-background;
+  font-size: 16px !important;
+  padding: 0px !important;
+  margin: 0px 0px 8px 8px !important;
+  text-wrap: auto;
 }

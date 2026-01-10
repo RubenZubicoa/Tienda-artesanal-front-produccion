@@ -11,15 +11,15 @@ export enum OrderStatus {
 }
 
 export type OrderFilters = {
-  username?: string;
-  phone?: string;
-  email?: string;
-  status?: OrderStatus;
+  username?: string | null;
+  phone?: string | null;
+  email?: string | null;
+  status?: OrderStatus | null;
   createdAt?: {
-      start?: number;
-      end?: number;
-  }
-  manufacturerId?: Manufacturer['uuid'];
+      start?: number | null;
+      end?: number | null;
+  } | null;
+  manufacturerId?: Manufacturer['uuid'] | null;
 }
 
 export type Order = {

@@ -51,6 +51,13 @@ html,body {
   @include mixins.button(variables.$primary-color);
 }
 
+.tienda-secondary-button {
+  @include mixins.button(variables.$light-gray-color);
+  background-color: white;
+  border-color: variables.$primary-color;
+  color: variables.$primary-color;
+}
+
 .tienda-warning-button {
   @include mixins.button(variables.$warning-color);
 }

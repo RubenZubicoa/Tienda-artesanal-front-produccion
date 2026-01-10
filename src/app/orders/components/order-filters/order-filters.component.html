@@ -10,19 +10,19 @@
 
 <ng-template #filtersContent let-form="form">
     <form [formGroup]="form">
-        <mat-form-field>
+        <mat-form-field class="tienda-f-width" appearance="outline">
             <mat-label>Nombre</mat-label>
             <input matInput formControlName="username" />
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="tienda-f-width" appearance="outline">
             <mat-label>Teléfono</mat-label>
             <input matInput formControlName="phone" />
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="tienda-f-width" appearance="outline">
             <mat-label>Email</mat-label>
             <input matInput formControlName="email" />
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="tienda-f-width" appearance="outline">
             <mat-label>Estado</mat-label>
             <mat-select formControlName="status">
                 @for (status of statuses; track status) {
@@ -30,9 +30,30 @@
                 }
             </mat-select>
         </mat-form-field>
-        <mat-form-field>
-            <mat-label>Fecha de creación</mat-label>
-            <input matInput formControlName="createdAt" />
-        </mat-form-field>
+        <mat-form-field
+        appearance="outline"
+        class="tienda-f-width"
+      >
+        <mat-label>Fecha de creación</mat-label>
+        <mat-date-range-input [rangePicker]="apertura">
+          <input
+            matStartDate
+            placeholder="Fecha inicio"
+            [formControl]="
+              form.controls.createdAt?.controls.start
+            "
+          />
+          <input
+            matEndDate
+            placeholder="Fecha fin"
+            [formControl]="form.controls.createdAt?.controls.end"
+          />
+        </mat-date-range-input>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="apertura"
+        ></mat-datepicker-toggle>
+        <mat-date-range-picker #apertura></mat-date-range-picker>
+      </mat-form-field>
     </form>
 </ng-template>

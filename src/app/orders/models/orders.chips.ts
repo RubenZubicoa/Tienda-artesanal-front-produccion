@@ -19,6 +19,10 @@ export const ORDERS_CHIPS: FilterChip[] = [
   },
   {
     title: 'Fecha de creación',
-    property: 'createdAt',
+    property: 'createdAt.start',
+    rangeDate: {
+      startProperty: 'createdAt.start',
+      endProperty: 'createdAt.end',
+    },
   },
 ];
