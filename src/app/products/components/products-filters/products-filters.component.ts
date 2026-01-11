@@ -1,28 +1,28 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject, output } from '@angular/core';
+import { ProductsFormFiltersService } from '../../services/products-form-filters.service';
+import { CommonModule } from '@angular/common';
+import { FiltersContainerComponent } from '../../../shared/components/filters-container/filters-container.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { FiltersContainerComponent } from '../../../shared/components/filters-container/filters-container.component';
-import { MeetingPointFilters } from '../../../core/models/MeetingPoint';
-import { MEETING_POINTS_CHIPS } from '../../models/meeting-points-chips';
-import { MeetingPointsFiltersFormService } from '../../services/meeting-points-filters-form.service';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { ProductFilters } from '../../../core/models/Product';
+import { PRODUCTS_CHIPS } from '../../models/products-chips';
 
 @Component({
-  selector: 'app-meeting-points-filters',
+  selector: 'app-products-filters',
   imports: [CommonModule, FiltersContainerComponent, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule],
-  templateUrl: './meeting-points-filters.component.html',
-  styleUrl: './meeting-points-filters.component.scss'
+  templateUrl: './products-filters.component.html',
+  styleUrl: './products-filters.component.scss'
 })
-export class MeetingPointsFiltersComponent {
-  public readonly formService = inject(MeetingPointsFiltersFormService);
+export class ProductsFiltersComponent {
+  public readonly formService = inject(ProductsFormFiltersService);
   
-  public applyFilters = output<MeetingPointFilters>(); 
+  public applyFilters = output<ProductFilters>(); 
 
-  public filters: MeetingPointFilters | undefined = undefined;
-  public readonly chips = MEETING_POINTS_CHIPS;
+  public filters: ProductFilters | undefined = undefined;
+  public readonly chips = PRODUCTS_CHIPS;
 
   ngOnInit(): void {
     this.filters = this.formService.obtenerDatos(this.formService.form);
@@ -39,7 +39,7 @@ export class MeetingPointsFiltersComponent {
     this.applyFilters.emit({});
   }
 
-  removeFilter(filters: MeetingPointFilters | undefined) {
+  removeFilter(filters: ProductFilters | undefined) {
     if (filters !== undefined) {
       this.filters = filters;
       this.formService.actualizarFormulario(this.formService.form, filters);

@@ -1,0 +1,37 @@
+<app-filters-container
+  [filters]="filters"
+  [chips]="chips"
+  (removeChip)="removeFilter($event)"
+  (clearFilters)="clearFiltersClick()"
+  (applyFilters)="applyFiltersClick()"
+>
+    <ng-container *ngTemplateOutlet="filtersContent; context: { form: formService.form }"></ng-container>
+</app-filters-container>
+
+<ng-template #filtersContent let-form="form">
+    <form [formGroup]="form">
+        <mat-form-field class="tienda-f-width" appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="name" />
+        </mat-form-field>
+        <mat-form-field class="tienda-f-width" appearance="outline">
+            <mat-label>Descripción</mat-label>
+            <input matInput formControlName="description" />
+        </mat-form-field>
+        <mat-form-field class="tienda-f-width" appearance="outline">
+            <mat-label>En stock</mat-label>
+            <mat-select formControlName="inStock">
+                <mat-option value="true">Si</mat-option>
+                <mat-option value="false">No</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="tienda-f-width" appearance="outline">
+            <mat-label>Categoría</mat-label>
+            <mat-select formControlName="category">
+                <mat-option value="1">Categoría 1</mat-option>
+                <mat-option value="2">Categoría 2</mat-option>
+                <mat-option value="3">Categoría 3</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </form>
+</ng-template>

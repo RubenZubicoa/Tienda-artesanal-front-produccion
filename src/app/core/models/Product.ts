@@ -52,3 +52,15 @@ export function isProductCart(product: unknown): product is ProductCart {
 export type ProductCart = Product & {
     quantity: number;
 }
+
+export type ProductFilters = {
+    manufacturerId?: string;
+    name?: string;
+    description?: string;
+    price?: {
+        start?: number;
+        end?: number;
+    },
+    inStock?: boolean;
+    category?: string;
+}
