@@ -9,29 +9,25 @@
 </app-filters-container>
 
 <ng-template #filtersContent let-form="form">
-    <form [formGroup]="form">
         <mat-form-field class="tienda-f-width" appearance="outline">
             <mat-label>Nombre</mat-label>
-            <input matInput formControlName="name" />
+            <input matInput [formControl]="form.controls.name" />
         </mat-form-field>
         <mat-form-field class="tienda-f-width" appearance="outline">
             <mat-label>Descripción</mat-label>
-            <input matInput formControlName="description" />
+            <input matInput [formControl]="form.controls.description" />
         </mat-form-field>
-        <mat-form-field class="tienda-f-width" appearance="outline">
-            <mat-label>En stock</mat-label>
-            <mat-select formControlName="inStock">
-                <mat-option value="true">Si</mat-option>
-                <mat-option value="false">No</mat-option>
-            </mat-select>
-        </mat-form-field>
+        <mat-slider min="0" [max]="maxPrice()">
+            <input matSliderStartThumb [(ngModel)]="startPrice">
+            <input matSliderEndThumb [(ngModel)]="endPrice">
+          </mat-slider>
+          <p><mat-slide-toggle [formControl]="form.controls.inStock" labelPosition="before">En stock</mat-slide-toggle></p>
         <mat-form-field class="tienda-f-width" appearance="outline">
             <mat-label>Categoría</mat-label>
-            <mat-select formControlName="category">
+            <mat-select [formControl]="form.controls.category">
                 <mat-option value="1">Categoría 1</mat-option>
                 <mat-option value="2">Categoría 2</mat-option>
                 <mat-option value="3">Categoría 3</mat-option>
             </mat-select>
         </mat-form-field>
-    </form>
 </ng-template>
