@@ -2,9 +2,10 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { API_CONFIG } from '../../core/config/api.config';
 import { map, Observable } from 'rxjs';
-import { AddMeetingPointDB, MeetingPoint, MeetingPointDB, UpdateMeetingPointDB, mapMeetingPointToMeetingPoint } from '../../core/models/MeetingPoint';
+import { AddMeetingPointDB, MeetingPoint, MeetingPointDB, MeetingPointFilters, UpdateMeetingPointDB, mapMeetingPointToMeetingPoint } from '../../core/models/MeetingPoint';
 import { Manufacturer } from '../../core/models/Manufacturer';
 import { InsertOneResult } from '../../core/models/InsertOneResult';
+import { mapperOnlyPropertiesWithValue } from '../../shared/utils/resquet-body-map';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,11 @@ export class MeetingPointsService {
 
   getMeetingPointsByManufacturer(manufacturerId: Manufacturer['uuid']): Observable<MeetingPoint[]> {
     return this.http.get<MeetingPointDB[]>(this.url + '/manufacturer/' + manufacturerId).pipe(map(meetingPoints => meetingPoints.map(mapMeetingPointToMeetingPoint)));
+  }
+
+  getMeetingPointsByFilters(filters: MeetingPointFilters): Observable<MeetingPoint[]> {
+    const filteredFilters = mapperOnlyPropertiesWithValue(filters);
+    return this.http.post<MeetingPointDB[]>(this.url + '/criteria', filteredFilters).pipe(map(meetingPoints => meetingPoints.map(mapMeetingPointToMeetingPoint)));
   }
 
   createMeetingPoint(meetingPoint: AddMeetingPointDB): Observable<InsertOneResult> {

@@ -26,6 +26,12 @@ export type MeetingPointDB = {
 export type AddMeetingPointDB = Omit<MeetingPointDB, '_id' | 'isDeleted'>;
 export type UpdateMeetingPointDB = Omit<MeetingPointDB, '_id' | 'isDeleted'>;
 
+export type MeetingPointFilters = {
+    manufacturerId?: string;
+    name?: string;
+    description?: string;
+}
+
 export const mapMeetingPointToMeetingPoint = (meetingPointDB: MeetingPointDB): MeetingPoint => {
     return {
         uuid: meetingPointDB._id,

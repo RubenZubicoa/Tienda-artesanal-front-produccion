@@ -16,6 +16,7 @@
       Agregar punto de encuentro
     </button>
   </div>
+  <app-meeting-points-filters (applyFilters)="applyFilters($event)"></app-meeting-points-filters>
   <app-table
     [columns]="columns"
     [data]="meetingPoints()"

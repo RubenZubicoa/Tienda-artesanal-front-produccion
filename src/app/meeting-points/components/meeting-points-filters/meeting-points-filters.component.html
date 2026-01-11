@@ -1,0 +1,22 @@
+<app-filters-container
+  [filters]="filters"
+  [chips]="chips"
+  (removeChip)="removeFilter($event)"
+  (clearFilters)="clearFiltersClick()"
+  (applyFilters)="applyFiltersClick()"
+>
+    <ng-container *ngTemplateOutlet="filtersContent; context: { form: formService.form }"></ng-container>
+</app-filters-container>
+
+<ng-template #filtersContent let-form="form">
+    <form [formGroup]="form">
+        <mat-form-field class="tienda-f-width" appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="name" />
+        </mat-form-field>
+        <mat-form-field class="tienda-f-width" appearance="outline">
+            <mat-label>Descripción</mat-label>
+            <input matInput formControlName="description" />
+        </mat-form-field>
+    </form>
+</ng-template>
