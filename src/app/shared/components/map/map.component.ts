@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild, Input, Output, EventEmitter, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MapMarker } from './map.models';
+import { getCurrentLocation } from '../../utils/location';
 
 @Component({
   selector: 'app-map',
@@ -11,8 +12,8 @@ import { MapMarker } from './map.models';
 export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
   @ViewChild('mapContainer', { static: true }) mapContainer!: ElementRef;
   
-  @Input() latitude: number = 42.976;
-  @Input() longitude: number = -2.291;
+  @Input() latitude: number = 0;
+  @Input() longitude: number = 0;
   @Input() zoom: number = 11;
   @Input() markerTitle: string = 'Ubicación';
   @Input() markers: MapMarker[] = [];
@@ -25,9 +26,12 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
   private marker: any = null;
 
   ngAfterViewInit(): void {
-    this.initMap();
-    this.markers.forEach(marker => {
-      this.addMarker(marker);
+    getCurrentLocation().then(currentLocation => {
+      console.log('currentLocation', currentLocation);
+      this.initMap(currentLocation ?? { lat: this.latitude, lng: this.longitude });  
+      this.markers.forEach(marker => {
+        this.addMarker(marker);
+      });
     });
 
   }
@@ -40,21 +44,24 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['markers']) {
-      this.initMap();
-      this.markers.forEach(marker => {
-        this.addMarker(marker);
+      getCurrentLocation().then(currentLocation => {
+        console.log('currentLocation', currentLocation);
+        this.initMap(currentLocation ?? { lat: this.latitude, lng: this.longitude });  
+        this.markers.forEach(marker => {
+          this.addMarker(marker);
+        });
       });
     }
   }
 
-  private initMap(): void {
+  private initMap(location: { lat: number, lng: number }): void {
     if (typeof google === 'undefined' || !google.maps) {
       console.error('Google Maps API no está cargada. Verifica que el script esté incluido en index.html');
       return;
     }
 
     const mapOptions = {
-      center: { lat: this.latitude, lng: this.longitude },
+      center: { lat: location.lat, lng: location.lng },
       zoom: this.zoom,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
