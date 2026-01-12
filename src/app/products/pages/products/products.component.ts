@@ -1,4 +1,4 @@
-import { Component, computed, DestroyRef, inject, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BreadcrumbsComponent } from '../../../shared/components/breadcrumbs/breadcrumbs.component';
 import { CardComponent } from '../../../shared/components/card/card.component';
@@ -15,7 +15,7 @@ import { Product, ProductFilters } from '../../../core/models/Product';
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
 })
-export class ProductsComponent {
+export class ProductsComponent implements OnInit {
 
   private readonly productsService = inject(ProductsService);
   private readonly destroyRef = inject(DestroyRef);
@@ -25,7 +25,12 @@ export class ProductsComponent {
   public productsData = computed(() => this.filteredProducts() ?? this.products());
   public filters = signal<ProductFilters>({});
   public cards = computed(() => this.productsData()?.map(mapProductToCardData) ?? []);
+  public maxPrice = computed(() => this.products()?.reduce((max, product) => Math.max(max, product.price), 0) ?? 0);
   public readonly router = inject(Router);
+
+  ngOnInit(): void {
+    console.log(this.maxPrice());
+  }
 
   public applyFilters(filters: ProductFilters) {
     this.filters.set(filters);
