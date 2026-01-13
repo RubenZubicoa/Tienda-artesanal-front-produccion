@@ -15,6 +15,7 @@ import { ManufacturerService } from '../../services/manufacturer.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { getCurrentLocation, getDistanceBetweenCoordinates } from '../../../shared/utils/location';
 import { ManufacturerFilters, ManufacturerWithLocation } from '../../../core/models/Manufacturer';
+import { ManufacturersFiltersComponent } from '../../components/manufacturers-filters/manufacturers-filters.component';
 
 @Component({
   selector: 'app-manufacturers',
@@ -27,6 +28,7 @@ import { ManufacturerFilters, ManufacturerWithLocation } from '../../../core/mod
     MapComponent,
     RouterModule,
     MatDialogModule,
+    ManufacturersFiltersComponent,
   ],
   templateUrl: './manufacturers.component.html',
   styleUrl: './manufacturers.component.scss',
@@ -53,30 +55,7 @@ export class ManufacturersComponent {
     });
     effect(
       () => {
-        this.manufacturers()?.forEach((manufacturer) => {
-          getLocationFromAddress(manufacturer.address ?? '').then(
-            (location) => {
-              const distance = getDistanceBetweenCoordinates(this.currentLocation() ?? { lat: 0, lng: 0 }, location ?? { lat: 0, lng: 0 });
-              if (distance <= this.filters().maxDistance!) {
-                manufacturer.latitude = location?.lat;
-                manufacturer.longitude = location?.lng;
-                const marker: MapMarker = {
-                  id: manufacturer.uuid,
-                  lat: location?.lat ?? 0,
-                  lng: location?.lng ?? 0,
-                  isClickable: true,
-                };
-                this.manufacturersLocations.set([
-                  ...this.manufacturersLocations(),
-                  {
-                    ...manufacturer,
-                    marker,
-                  },
-                ]);
-              }
-            }
-          );
-        });
+        this.getManufacturerLocations(this.filters());
       },
       { allowSignalWrites: true }
     );
@@ -101,5 +80,40 @@ export class ManufacturersComponent {
         },
       });
     }
+  }
+
+  public applyFilters(filters: ManufacturerFilters) {
+    this.filters.set(filters);
+    this.getManufacturerLocations(filters);
+  }
+
+  private getManufacturerLocations(filters: ManufacturerFilters) {
+    const maxDistance = filters.maxDistance ?? 20;
+    this.manufacturersLocations.set([]);
+        this.manufacturers()?.forEach((manufacturer) => {
+          getLocationFromAddress(manufacturer.address ?? '').then(
+            (location) => {
+              const distance = getDistanceBetweenCoordinates(this.currentLocation() ?? { lat: 0, lng: 0 }, location ?? { lat: 0, lng: 0 });
+              console.log(distance, maxDistance);
+              if (distance <= maxDistance) {
+                manufacturer.latitude = location?.lat;
+                manufacturer.longitude = location?.lng;
+                const marker: MapMarker = {
+                  id: manufacturer.uuid,
+                  lat: location?.lat ?? 0,
+                  lng: location?.lng ?? 0,
+                  isClickable: true,
+                };
+                this.manufacturersLocations.set([
+                  ...this.manufacturersLocations(),
+                  {
+                    ...manufacturer,
+                    marker,
+                  },
+                ]);
+              }
+            }
+          );
+        });
   }
 }

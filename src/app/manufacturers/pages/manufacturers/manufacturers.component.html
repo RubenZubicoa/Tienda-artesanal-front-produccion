@@ -8,7 +8,10 @@
         Encuentra los mejores vendedores de productos artesanales cerca de ti
       </h2>
     </div>
-    <ng-container *ngTemplateOutlet="buttonToggleGroup"></ng-container>
+    <div class="manufacturers-buttons-container">
+      <app-manufacturers-filters (applyFilters)="applyFilters($event)"></app-manufacturers-filters>
+      <ng-container *ngTemplateOutlet="buttonToggleGroup"></ng-container>
+    </div>
   </div>
   @if (view() === 'list') {
   <div class="products-list-container">

@@ -12,6 +12,15 @@
   display: none;
 }
 
+.manufacturers-buttons-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+}
+
 .map-container {
  display: block;
 }

@@ -1,0 +1,18 @@
+<app-filters-container
+  [filters]="filters"
+  [chips]="chips"
+  (removeChip)="removeFilter($event)"
+  (clearFilters)="clearFiltersClick()"
+  (applyFilters)="applyFiltersClick()"
+>
+    <ng-container *ngTemplateOutlet="filtersContent; context: { form: formService.form }"></ng-container>
+</app-filters-container>
+
+<ng-template #filtersContent let-form="form">
+    <form [formGroup]="form">
+        <mat-form-field class="tienda-f-width" appearance="outline">
+            <mat-label>Distancia</mat-label>
+            <input matInput type="number" formControlName="maxDistance" />
+        </mat-form-field>
+    </form>
+</ng-template>
