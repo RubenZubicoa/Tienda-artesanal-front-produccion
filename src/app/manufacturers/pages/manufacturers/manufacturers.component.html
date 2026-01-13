@@ -22,7 +22,7 @@
   </div>
   } @else {
   <app-map
-    [markers]="manufacturersLocations()"
+    [markers]="markers()"
     (markerClick)="showManufacturersDetails($event)"
   ></app-map>
   }

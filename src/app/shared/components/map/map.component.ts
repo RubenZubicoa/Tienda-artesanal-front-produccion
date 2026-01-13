@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild, Input, Output, EventEmitter, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MapMarker } from './map.models';
-import { getCurrentLocation } from '../../utils/location';
+import { getCurrentLocation, getDistanceBetweenCoordinates } from '../../utils/location';
 
 @Component({
   selector: 'app-map',
@@ -27,8 +27,8 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
 
   ngAfterViewInit(): void {
     getCurrentLocation().then(currentLocation => {
-      console.log('currentLocation', currentLocation);
       this.initMap(currentLocation ?? { lat: this.latitude, lng: this.longitude });  
+
       this.markers.forEach(marker => {
         this.addMarker(marker);
       });
@@ -45,9 +45,10 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['markers']) {
       getCurrentLocation().then(currentLocation => {
-        console.log('currentLocation', currentLocation);
         this.initMap(currentLocation ?? { lat: this.latitude, lng: this.longitude });  
         this.markers.forEach(marker => {
+          const distance = getDistanceBetweenCoordinates(currentLocation ?? { lat: this.latitude, lng: this.longitude }, marker);
+          console.log('distance', distance);
           this.addMarker(marker);
         });
       });
@@ -85,18 +86,6 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
       markerElement.addListener('click', () => {
         this.markerClick.emit(marker.id);
       });
-    }
-  }
-
-  public setCenter(lat: number, lng: number): void {
-    if (this.map) {
-      this.map.setCenter({ lat, lng });
-    }
-  }
-
-  public setZoom(zoom: number): void {
-    if (this.map) {
-      this.map.setZoom(zoom);
     }
   }
 

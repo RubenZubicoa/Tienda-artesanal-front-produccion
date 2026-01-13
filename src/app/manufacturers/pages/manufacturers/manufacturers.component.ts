@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, OnInit, signal } from '@angular/core';
 import { CardComponent } from '../../../shared/components/card/card.component';
 import { CommonModule } from '@angular/common';
 import { mapManufacturerToCardData } from '../../../shared/components/card/card.models';
@@ -13,6 +13,8 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ManufacturersDialogComponent } from '../../components/manufacturers-dialog/manufacturers-dialog.component';
 import { ManufacturerService } from '../../services/manufacturer.service';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { getCurrentLocation, getDistanceBetweenCoordinates } from '../../../shared/utils/location';
+import { ManufacturerFilters, ManufacturerWithLocation } from '../../../core/models/Manufacturer';
 
 @Component({
   selector: 'app-manufacturers',
@@ -37,28 +39,41 @@ export class ManufacturersComponent {
   private readonly manufacturerService = inject(ManufacturerService);
 
   public manufacturers = toSignal(this.manufacturerService.getManufacturers());
+  public manufacturersLocations = signal<ManufacturerWithLocation[]>([]);
+  public markers = computed(() => this.manufacturersLocations().map(manufacturer => manufacturer.marker));
   public manufacturersCards = computed(() =>
-    this.manufacturers()?.map(mapManufacturerToCardData)
+    this.manufacturersLocations()?.map(mapManufacturerToCardData)
   );
-  public manufacturersLocations = signal<MapMarker[]>([]);
+  public currentLocation = signal<{ lat: number, lng: number } | null>(null);
+  public filters = signal<ManufacturerFilters>({ maxDistance: 20 });
 
   constructor() {
+    getCurrentLocation().then(currentLocation => {
+      this.currentLocation.set(currentLocation);
+    });
     effect(
       () => {
         this.manufacturers()?.forEach((manufacturer) => {
           getLocationFromAddress(manufacturer.address ?? '').then(
             (location) => {
-              manufacturer.latitude = location?.lat;
-              manufacturer.longitude = location?.lng;
-              this.manufacturersLocations.set([
-                ...this.manufacturersLocations(),
-                {
+              const distance = getDistanceBetweenCoordinates(this.currentLocation() ?? { lat: 0, lng: 0 }, location ?? { lat: 0, lng: 0 });
+              if (distance <= this.filters().maxDistance!) {
+                manufacturer.latitude = location?.lat;
+                manufacturer.longitude = location?.lng;
+                const marker: MapMarker = {
                   id: manufacturer.uuid,
                   lat: location?.lat ?? 0,
                   lng: location?.lng ?? 0,
                   isClickable: true,
-                },
-              ]);
+                };
+                this.manufacturersLocations.set([
+                  ...this.manufacturersLocations(),
+                  {
+                    ...manufacturer,
+                    marker,
+                  },
+                ]);
+              }
             }
           );
         });

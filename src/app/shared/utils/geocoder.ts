@@ -19,7 +19,6 @@ export function getLocationFromAddress(address: string): Promise<{ lat: number; 
           lat: location.lat(),
           lng: location.lng()
         };
-        console.log(`Coordenadas de "${address}":`, coordinates);
         resolve(coordinates);
       } else {
         console.error(`Error al geocodificar "${address}":`, status);

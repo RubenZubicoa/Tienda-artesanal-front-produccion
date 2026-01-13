@@ -1,4 +1,5 @@
 import { getLocationFromAddress } from "../../shared/utils/geocoder";
+import { MapMarker } from "../../shared/components/map/map.models";
 
 export type Manufacturer  = {
     uuid: string;
@@ -25,6 +26,14 @@ export type ManufacturerDB = {
     createdAt: number;
     updatedAt?: number;
     isDeleted?: boolean;
+}
+
+export type ManufacturerWithLocation = Manufacturer & {
+    marker: MapMarker;
+}
+
+export type ManufacturerFilters = {
+    maxDistance?: number;
 }
 
 export type AddManufacturerDB = Omit<ManufacturerDB, '_id' | 'createdAt' | 'updatedAt' | 'isDeleted'>;
