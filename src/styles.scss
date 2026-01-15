@@ -96,6 +96,11 @@ html,body {
   width: 100%;
 }
 
+.tienda-select-input {
+  background-color: variables.$surface-color;
+  z-index: 1000;
+}
+
 @keyframes spinner-rotate {
   0% { 
     transform: rotate(0deg); 

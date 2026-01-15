@@ -6,14 +6,12 @@ export interface ICompleteOrderForm {
   name: string;
   email: string;
   phone: string;
-  address: string;
 }
 
 type CompleteOrderFormContent = {
   name: FormControl<string | null>;
   email: FormControl<string | null>;
   phone: FormControl<string | null>;
-  address: FormControl<string | null>;
 };
 
 export type CompleteOrderForm = FormGroup<CompleteOrderFormContent>;
@@ -26,7 +24,6 @@ export class CompleteOrderFormService implements IServiceForm<ICompleteOrderForm
   crearFormulario(): CompleteOrderForm {
     return new FormGroup<CompleteOrderFormContent>({
       name: new FormControl('', [Validators.required]),
-      address: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
       phone: new FormControl('', [Validators.required])
     });

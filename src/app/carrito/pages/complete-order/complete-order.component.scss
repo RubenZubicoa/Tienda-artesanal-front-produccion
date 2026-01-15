@@ -1,0 +1,15 @@
+.complete-order-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+@media screen and (width > 768px) {
+    mat-form-field {
+        width: 40%;
+    }
+    .complete-order-button {
+     width: 50%;
+    }
+}

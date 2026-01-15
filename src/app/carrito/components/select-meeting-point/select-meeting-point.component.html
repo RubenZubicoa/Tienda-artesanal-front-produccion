@@ -1,0 +1,30 @@
+<div class="select-meeting-point-container">
+  <ng-container *ngFor="let manufacturerId of manufacturersIds()">
+    @if (data[manufacturerId]) {
+    <div class="meeting-point-container">
+      <h2 class="tienda-subtitle">
+        <b>Punto de encuentro del artesano {{ manufacturerId }}:</b>
+      </h2>
+      @if (data[manufacturerId].length > 0) {
+      <mat-form-field class="tienda-f-width" appearance="outline">
+        <mat-label>Punto de encuentro</mat-label>
+        <mat-select class="tienda-select-input" [disabled]="disabledForm()">
+          <mat-option
+            *ngFor="let meetingPoint of data[manufacturerId]"
+            [value]="meetingPoint.uuid"
+            (onSelectionChange)="onChangeMeetingPoint(manufacturerId, meetingPoint.uuid)"
+            
+          >
+            {{ meetingPoint.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button class="tienda-primary-button" [disabled]="disabledForm()"><mat-icon>map</mat-icon></button>
+      } @else {
+      <p class="tienda-text">No hay puntos de encuentro disponibles para este artesano. Cuando realices el pedido el artesano te contactará para confirmar el punto de encuentro.</p>
+      }
+    </div>
+    }
+  </ng-container>
+  
+</div>

@@ -1,5 +1,6 @@
 import { Product } from './Product';
 import { Manufacturer } from './Manufacturer';
+import { MeetingPoint } from './MeetingPoint';
 
 export enum OrderStatus {
   PENDING = 'pending',
@@ -35,6 +36,7 @@ export type Order = {
       price: number;
   }[];
   manufacturerId: Manufacturer['uuid'];
+  meetingPointId?: MeetingPoint['uuid'];
   createdAt: number;
   updatedAt?: number;
   status: OrderStatus;
@@ -53,12 +55,13 @@ export type OrderDB = {
       price: number;
   }[];
   manufacturerId: Manufacturer['uuid'];
+  meetingPointId?: MeetingPoint['uuid'];
   status: OrderStatus;
   createdAt: number;
   updatedAt?: number;
 }
 
-export type AddOrder = Omit<Order, 'uuid' | 'createdAt' | 'updatedAt' | 'status'>;
+export type AddOrder = Omit<Order, 'uuid' | 'createdAt' | 'updatedAt' | 'status' | 'address'>;
 export type UpdateOrder = Omit<Order, 'uuid' | 'createdAt' | 'updatedAt'>;
 
 export type OrderTableData = Order & {total: number}
@@ -72,6 +75,7 @@ export function mapOrderToOrder(orderDB: OrderDB): Order {
     email: orderDB.email,
     products: orderDB.products,
     manufacturerId: orderDB.manufacturerId,
+    meetingPointId: orderDB.meetingPointId,
     status: orderDB.status as OrderStatus,
     createdAt: orderDB.createdAt,
     updatedAt: orderDB.updatedAt,

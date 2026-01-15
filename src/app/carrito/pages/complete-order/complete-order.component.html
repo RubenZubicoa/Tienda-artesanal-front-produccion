@@ -1,6 +1,24 @@
 <section class="section-container">
-    <app-breadcrumbs></app-breadcrumbs>
-    <h1 class="tienda-title">Completar pedido</h1>
-    <h2 class="tienda-subtitle">Aquí puedes completar tu pedido</h2>
-    <app-complete-order-form></app-complete-order-form>
+  <app-breadcrumbs></app-breadcrumbs>
+  <mat-stepper linear #stepper>
+    <mat-step [stepControl]="orderFormData">
+      <h1 class="tienda-title">Completar pedido</h1>
+      <h2 class="tienda-subtitle">Aquí puedes completar tu pedido</h2>
+      <app-complete-order-form
+        (completeOrder)="completeOrder($event)"
+      ></app-complete-order-form>
+    </mat-step>
+    <mat-step>
+      <h1 class="tienda-title">Puntos de encuentro</h1>
+      <h2 class="tienda-subtitle">
+        Aquí puedes seleccionar el punto de encuentro para tu pedido por cada
+        artesano seleccionado
+      </h2>
+      <app-select-meeting-point [disabledForm]="orderFormData.invalid" (selectedMeetingPoint)="selectedMeetingPoint($event)"></app-select-meeting-point>
+      <div class="complete-order-button-container">
+          <button class="tienda-primary-button complete-order-button" (click)="saveChanges()">Completar pedido</button>
+      </div>
+    </mat-step>
+  </mat-stepper>
 </section>
+
