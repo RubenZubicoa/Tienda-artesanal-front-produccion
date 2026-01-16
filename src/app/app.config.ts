@@ -8,9 +8,12 @@ import { loadingInterceptor } from './core/interceptors/loading.interceptor';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { provideAnimations } from '@angular/platform-browser/animations';
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideAnimations(),
     importProvidersFrom(BrowserModule),
     importProvidersFrom(BrowserAnimationsModule),
     provideZoneChangeDetection({ eventCoalescing: true }),

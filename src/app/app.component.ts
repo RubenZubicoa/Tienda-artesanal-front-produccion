@@ -3,10 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './layout/components/header/header.component';
 import { SidenavComponent } from './layout/components/sidenav/sidenav.component';
 import { LoadingComponent } from './shared/components/loading/loading.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, SidenavComponent, LoadingComponent],
+  imports: [CommonModule, RouterOutlet, HeaderComponent, SidenavComponent, LoadingComponent],
+  standalone: true,
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
