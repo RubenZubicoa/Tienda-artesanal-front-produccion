@@ -43,7 +43,7 @@ export class CompleteOrderComponent {
       const products = productsByManufacturer[manufacturer];
       const order: AddOrder = {
         manufacturerId: manufacturer,
-        products: this.getProducts(products),
+        products: products,
         username: formData.name,
         phone: formData.phone,
         email: formData.email,
@@ -75,9 +75,5 @@ export class CompleteOrderComponent {
         this.toasterService.showMessage(ToastTypes.ERROR, 'Error al completar pedido', 'El pedido no ha sido completado correctamente');
       }
     });
-  }
-
-  private getProducts(products: ProductCart[]){
-    return products.map(product => ({ productId: product.uuid, name: product.name, quantity: product.quantity, price: product.price }))
   }
 }

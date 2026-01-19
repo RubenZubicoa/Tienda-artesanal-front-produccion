@@ -1,4 +1,4 @@
-import { Product } from './Product';
+import { Product, ProductCart } from './Product';
 import { Manufacturer } from './Manufacturer';
 import { MeetingPoint } from './MeetingPoint';
 
@@ -29,12 +29,7 @@ export type Order = {
   address: string;
   phone: string;
   email: string;
-  products: {
-      productId: Product['uuid'];
-      name: string;
-      quantity: number;
-      price: number;
-  }[];
+  products: ProductCart[];
   manufacturerId: Manufacturer['uuid'];
   meetingPointId?: MeetingPoint['uuid'];
   createdAt: number;
@@ -48,12 +43,7 @@ export type OrderDB = {
   address: string;
   phone: string;
   email: string;
-  products: {
-      productId: Product['uuid'];
-      name: string;
-      quantity: number;
-      price: number;
-  }[];
+  products: ProductCart[];
   manufacturerId: Manufacturer['uuid'];
   meetingPointId?: MeetingPoint['uuid'];
   status: OrderStatus;
