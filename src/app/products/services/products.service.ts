@@ -4,6 +4,7 @@ import { API_CONFIG } from '../../core/config/api.config';
 import { AddProduct, Product, ProductDB, ProductFilters, UpdateProduct, mapProductToProduct } from '../../core/models/Product';
 import { map, Observable } from 'rxjs';
 import { mapperOnlyPropertiesWithValue } from '../../shared/utils/resquet-body-map';
+import { InsertOneResult } from '../../core/models/InsertOneResult';
 
 @Injectable({
   providedIn: 'root'
@@ -36,8 +37,8 @@ export class ProductsService {
     return this.http.get<ProductDB[]>(url).pipe(map(products => products.map(mapProductToProduct)));
   }
 
-  createProduct(product: AddProduct): Observable<void> {
-    return this.http.post<void>(this.url, product);
+  createProduct(product: AddProduct): Observable<InsertOneResult> {
+    return this.http.post<InsertOneResult>(this.url, product);
   }
 
   updateProduct(uuid: Product['uuid'], product: UpdateProduct): Observable<void> {

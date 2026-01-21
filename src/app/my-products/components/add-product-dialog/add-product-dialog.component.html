@@ -9,54 +9,42 @@
 </div>
 
 <ng-template #imagesTemplate>
-  <div class="images-container">
-    <img
-      *ngFor="let image of images(); let i = index"
-      [src]="image"
-      alt="Image"
-    />
-  </div>
+  <app-carrusel [images]="images()"></app-carrusel>
 </ng-template>
 
 <ng-template #formTemplate let-form="form">
   <div class="row">
     <mat-form-field appearance="outline" class="form-control">
       <mat-label>Nombre</mat-label>
-      <input matInput type="text" [formControl]="form.controls.name"/>
+      <input matInput type="text" [formControl]="form.controls.name" />
     </mat-form-field>
     <mat-form-field appearance="outline" class="form-control">
       <mat-label>Precio</mat-label>
-      <input matInput type="number" [formControl]="form.controls.price"/>
+      <input matInput type="number" [formControl]="form.controls.price" />
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="form-control">
       <mat-label>Stock</mat-label>
-      <input matInput type="number" [formControl]="form.controls.stock"/>
+      <input matInput type="number" [formControl]="form.controls.stock" />
     </mat-form-field>
   </div>
   <div class="row">
     <mat-form-field appearance="outline" class="form-control">
       <mat-label>Categoría</mat-label>
       <mat-select [formControl]="form.controls.category">
-        <mat-option
-          *ngFor="let category of categories()"
-          [value]="category.uuid"
-          >{{ category.name }}</mat-option
-        >
+        <mat-option *ngFor="let category of categories()" [value]="category.uuid">{{ category.name }}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
   <div class="row">
-    <mat-form-field appearance="outline" class="form-control">
-      <mat-label>Imagen</mat-label>
-      <input matInput type="text" #imageInput />
-    </mat-form-field>
-    <button
-      mat-raised-button
-      class="tienda-primary-button"
-      (click)="addImage(imageInput.value)"
-    >
-      Agregar imagen
+      <label class="file-input-label">
+        <input type="file" accept="image/*" #imageInput (change)="onFileSelected($event)" style="display: none;" />
+        <button type="button" class="tienda-primary-button" (click)="imageInput.click()">
+          Seleccionar imagen
+        </button>
+      </label>
+    <button type="button" class="tienda-warning-button" (click)="removeImages()">
+      Eliminar imagenes
     </button>
   </div>
   <div class="row">

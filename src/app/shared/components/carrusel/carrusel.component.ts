@@ -78,7 +78,9 @@ export class CarruselComponent implements OnInit, OnDestroy {
 
   public getCurrentImage(): string {
     const images = this.images();
+    console.log(images);
     if (images.length === 0) return '';
-    return images[this.currentIndex()];
+    console.log(`http://localhost:3000/${images[this.currentIndex()]}`);
+    return `http://localhost:3000/${images[this.currentIndex()]}`;
   }
 }

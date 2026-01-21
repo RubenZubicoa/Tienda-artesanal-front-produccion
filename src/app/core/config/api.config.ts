@@ -8,4 +8,5 @@ export const API_CONFIG = {
   CATEGORIES_URL: '/categories',
   LOGIN_URL: '/login',
   MEETING_POINTS_URL: '/meeting-points',
+  PRODUCT_IMAGES_URL: '/product-images',
 }
