@@ -1,7 +1,6 @@
 @let mapMarker = marker();
 <div class="order-meeting-point-container">
-    <h2 class="tienda-subtitle"><b>Punto de encuentro:</b></h2>
-    <!-- <p class="tienda-text">Fecha y hora de encuentro: <b>22/12/2025 10:00</b></p> -->
+    <h2 class="tienda-subtitle">Punto de encuentro: <b>{{ meetingPoint().name }}</b></h2>
     <div class="map-container">
         <app-map [height]="'45vh'" [markers]="[mapMarker]" [latitude]="mapMarker.lat" [longitude]="mapMarker.lng" [zoom]="17"></app-map>
     </div>

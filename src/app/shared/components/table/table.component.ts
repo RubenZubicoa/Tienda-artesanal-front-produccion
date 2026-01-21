@@ -1,4 +1,4 @@
-import { Component, computed, effect, input, output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, computed, effect, input, output, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
@@ -16,7 +16,7 @@ import { getStatusLabel, OrderStatus } from '../../../core/models/Order';
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss'
 })
-export class TableComponent<T> {
+export class TableComponent<T> implements AfterViewInit {
 
   public columns = input<TableColumn[]>([]);
   public data = input<TableData<T> []>([]);
@@ -41,6 +41,11 @@ export class TableComponent<T> {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   public details(element: T) {
