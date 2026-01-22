@@ -56,7 +56,6 @@ export class AddProductDialogComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.data.product) {
-      console.log(this.data.product);
       this.productFormService.actualizarFormulario(this.productForm, this.data.product);
       this.images.set(this.data.product.images);
       this.isUpdateMode.set(true);

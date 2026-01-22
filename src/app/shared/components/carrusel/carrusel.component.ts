@@ -1,7 +1,8 @@
-import { Component, input, OnInit, OnDestroy, signal, computed } from '@angular/core';
+import { Component, input, OnInit, OnDestroy, signal, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-carrusel',
@@ -16,7 +17,8 @@ export class CarruselComponent implements OnInit, OnDestroy {
   public autoPlayInterval = input<number>(3000); // en milisegundos
   public showIndicators = input<boolean>(true);
   public showNavigation = input<boolean>(true);
-
+  private readonly imageUrl = 'http://localhost:3000/';
+  private readonly sanitizer = inject(DomSanitizer);
   // Estado interno
   public currentIndex = signal<number>(0);
   private autoPlayTimer?: ReturnType<typeof setInterval>;
@@ -76,11 +78,13 @@ export class CarruselComponent implements OnInit, OnDestroy {
     }
   }
 
-  public getCurrentImage(): string {
+  public getCurrentImage(): SafeUrl {
     const images = this.images();
-    console.log(images);
     if (images.length === 0) return '';
-    console.log(`http://localhost:3000/${images[this.currentIndex()]}`);
-    return `http://localhost:3000/${images[this.currentIndex()]}`;
+    const image = images[this.currentIndex()];
+    if (image.includes('uploads')) {
+      return this.sanitizer.bypassSecurityTrustUrl(this.imageUrl + image);
+    }
+    return this.sanitizer.bypassSecurityTrustUrl(image);
   }
 }

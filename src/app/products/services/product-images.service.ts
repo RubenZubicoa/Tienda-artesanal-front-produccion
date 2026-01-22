@@ -15,10 +15,10 @@ export class ProductImagesService {
     return this.http.get<ProductImageDB[]>(this.url + '/' + productId).pipe(map(productImages => productImages.map(mapProductImageToProductImage)));
   }
 
-  addProductImages(addProductImage: AddProductImage): Observable<ProductImage> {
+  addProductImages(addProductImage: AddProductImage): Observable<void> {
     const formData = new FormData();
     formData.append('productId', addProductImage.productId);
     addProductImage.images.forEach((image: File) => formData.append('images', image));
-    return this.http.post<ProductImageDB>(this.url, formData).pipe(map(mapProductImageToProductImage));
+    return this.http.post<void>(this.url, formData);
   }
 }
