@@ -21,4 +21,8 @@ export class ProductImagesService {
     addProductImage.images.forEach((image: File) => formData.append('images', image));
     return this.http.post<void>(this.url, formData);
   }
+
+  deleteProductImages(productId: string, images: string[]): Observable<void> {
+    return this.http.post<void>(this.url + '/deleteImages', { productId: productId, images: images });
+  }
 }

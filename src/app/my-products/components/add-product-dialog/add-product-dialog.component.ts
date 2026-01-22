@@ -18,7 +18,7 @@ import { AddProduct, Product } from '../../../core/models/Product';
 import { CarruselComponent } from '../../../shared/components/carrusel/carrusel.component';
 import { AddProductImage } from '../../../core/models/ProductImage';
 import { ProductImagesService } from '../../../products/services/product-images.service';
-import { InsertOneResult } from '../../../core/models/InsertOneResult';
+import { InsertOneResult, UpdateOneResult } from '../../../core/models/InsertOneResult';
 
 @Component({
   selector: 'app-add-product-dialog',
@@ -43,7 +43,7 @@ export class AddProductDialogComponent implements OnInit {
   private readonly toastService = inject(ToastService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly currentUserService = inject(CurrentUserService);
-  private readonly data = inject<{ product?: Product }>(MAT_DIALOG_DATA);
+  private readonly data = inject<{ product: Product }>(MAT_DIALOG_DATA);
   private readonly productImagesService = inject(ProductImagesService);
   
   public productForm = this.productFormService.crearFormulario();
@@ -51,8 +51,10 @@ export class AddProductDialogComponent implements OnInit {
 
   public images = signal<string[]>([]);
   public isUpdateMode = signal<boolean>(false);
-  private readonly MAX_IMAGES = 10;
   private imageFiles = signal<File[]>([]);
+  private deleteImages = signal<string[]>([]);
+
+  private readonly MAX_IMAGES = 10;
 
   ngOnInit(): void {
     if (this.data.product) {
@@ -127,13 +129,11 @@ export class AddProductDialogComponent implements OnInit {
     this.images.update((prev) => [...prev, image]);
   }
 
-  public removeImage(index: number) {
-    this.images.update((prev) => prev.filter((_, i) => i !== index));
-    this.imageFiles.update((prev) => prev.filter((_, i) => i !== index));
-  }
-
   public saveChanges(){
     if (this.isUpdateMode()) {
+      if (this.deleteImages().length > 0) {
+        this.deleteProductImages(this.data.product?.uuid ?? '');
+      }
       this.updateProduct();
     } else {
       this.addProduct();
@@ -141,6 +141,7 @@ export class AddProductDialogComponent implements OnInit {
   }
 
   public removeImages() {
+    this.deleteImages.set(this.images());
     this.images.set([]);
     this.imageFiles.set([]);
   }
@@ -165,9 +166,8 @@ export class AddProductDialogComponent implements OnInit {
     this.validateManufacturer();
     product.manufacturerId = this.currentUserService.currentUser()?.manufacturerId ?? '';
     this.productsService.updateProduct(this.data.product?.uuid ?? '', product).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
-      next: () => {
-        this.toastService.showMessage(ToastTypes.SUCCESS, 'Producto actualizado', 'El producto ha sido actualizado correctamente');
-        this.dialogRef.close( { success: true, product: product } );
+      next: (result: UpdateOneResult) => {
+        this.addProductImages({...product, uuid: this.data.product.uuid});
       },
       error: () => {
         this.toastService.showMessage(ToastTypes.ERROR, 'Error al actualizar producto', 'El producto no ha sido actualizado correctamente');
@@ -193,6 +193,14 @@ export class AddProductDialogComponent implements OnInit {
         this.toastService.showMessage(ToastTypes.SUCCESS, 'Producto actualizado', 'El producto ha sido actualizado correctamente');
         this.dialogRef.close( { success: true, product: product } );
       }
+    });
+  }
+
+  private deleteProductImages(productId: string) {
+    this.productImagesService.deleteProductImages(productId, this.deleteImages()).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      next: () => {
+        this.toastService.showMessage(ToastTypes.SUCCESS, 'Imágenes eliminadas', 'Las imágenes han sido eliminadas correctamente');
+      },
     });
   }
 }
