@@ -5,6 +5,14 @@
     height: 100%;
 }
 
+.product-details-header-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    width: 100%;
+}
+
 .product-details-content-header {
     display: flex;
     flex-direction: row;

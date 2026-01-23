@@ -40,6 +40,7 @@ export class ProductsComponent implements OnInit {
   }
 
   public goToProductDetails(card: CardData) {
+    console.log(card);
     this.router.navigate(['/products', card.uuid]);
   }
 }

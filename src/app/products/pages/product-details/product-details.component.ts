@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, input, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, effect, inject, input, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Product } from '../../../core/models/Product';
 import { BreadcrumbsComponent } from '../../../shared/components/breadcrumbs/breadcrumbs.component';
@@ -18,7 +18,7 @@ import { MatDividerModule } from '@angular/material/divider';
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss'
 })
-export class ProductDetailsComponent implements OnInit {
+export class ProductDetailsComponent  {
   private readonly carritoService = inject(CarritoService);
   private readonly toastService = inject(ToastService);
   private readonly manufacturerService = inject(ManufacturerService);
@@ -27,10 +27,12 @@ export class ProductDetailsComponent implements OnInit {
   public product = input.required<Product>();
   public manufacturer = signal<Manufacturer | undefined>(undefined);
 
-  ngOnInit(): void {
-    this.manufacturerService.getManufacturer(this.product().manufacturerId).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(manufacturer => {
-      this.manufacturer.set(manufacturer);
-    });
+  constructor(){
+    effect(() => {
+      this.manufacturerService.getManufacturer(this.product().manufacturerId).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(manufacturer => {
+        this.manufacturer.set(manufacturer);
+      });
+    }, { allowSignalWrites: true });
   }
 
   public addProductToCart(quantity: string) {
