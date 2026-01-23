@@ -1,7 +1,8 @@
 <div class="section-container">
   <div class="register-header">
     <h1 class="tienda-title">{{ isUpdateMode() ? 'Actualizar cuenta' : 'Registro de usuario y artesano' }}</h1>
-    <h2 class="tienda-subtitle">{{ isUpdateMode() ? 'Completa los siguientes campos para actualizar tu cuenta' : 'Completa los siguientes campos para crear tu cuenta y si lo deseas, también puedes registrar tu negocio' }}</h2>
+    <h2 class="tienda-subtitle">{{ isUpdateMode() ? 'Completa los siguientes campos para actualizar tu cuenta' :
+      'Completa los siguientes campos para crear tu cuenta y si lo deseas, también puedes registrar tu negocio' }}</h2>
   </div>
 
   <form [formGroup]="form" class="register-form">
@@ -19,7 +20,8 @@
 
         <mat-form-field appearance="outline" class="tienda-f-width">
           <mat-label>Teléfono</mat-label>
-          <input matInput type="tel" [formControl]="form.controls.phone" placeholder="Introduce tu número de teléfono" />
+          <input matInput type="tel" [formControl]="form.controls.phone"
+            placeholder="Introduce tu número de teléfono" />
           <mat-error *ngIf="form.controls.phone.hasError('required') && form.controls.phone.touched">
             El teléfono es requerido
           </mat-error>
@@ -27,7 +29,8 @@
 
         <mat-form-field appearance="outline" class="tienda-f-width">
           <mat-label>Correo electrónico</mat-label>
-          <input matInput type="email" [formControl]="form.controls.email" placeholder="Introduce tu correo electrónico" />
+          <input matInput type="email" [formControl]="form.controls.email"
+            placeholder="Introduce tu correo electrónico" />
           <mat-error *ngIf="form.controls.email.hasError('required') && form.controls.email.touched">
             El correo electrónico es requerido
           </mat-error>
@@ -36,9 +39,10 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="tienda-f-width" >
+        <mat-form-field appearance="outline" class="tienda-f-width">
           <mat-label>Contraseña</mat-label>
-          <input matInput type="password" [formControl]="form.controls.password" placeholder="Introduce tu contraseña" />
+          <input matInput type="password" [formControl]="form.controls.password"
+            placeholder="Introduce tu contraseña" />
           <mat-error *ngIf="form.controls.password.hasError('required') && form.controls.password.touched">
             La contraseña es requerida
           </mat-error>
@@ -49,11 +53,14 @@
 
         <mat-form-field appearance="outline" class="tienda-f-width">
           <mat-label>Confirmar contraseña</mat-label>
-          <input matInput type="password" [formControl]="form.controls.confirmPassword" placeholder="Confirma tu contraseña" />
-          <mat-error *ngIf="form.controls.confirmPassword.hasError('required') && form.controls.confirmPassword.touched">
+          <input matInput type="password" [formControl]="form.controls.confirmPassword"
+            placeholder="Confirma tu contraseña" />
+          <mat-error
+            *ngIf="form.controls.confirmPassword.hasError('required') && form.controls.confirmPassword.touched">
             Debes confirmar la contraseña
           </mat-error>
-          <mat-error *ngIf="form.hasError('passwordMismatch') && form.controls.confirmPassword.touched && !form.controls.confirmPassword.hasError('required')">
+          <mat-error
+            *ngIf="form.hasError('passwordMismatch') && form.controls.confirmPassword.touched && !form.controls.confirmPassword.hasError('required')">
             Las contraseñas no coinciden
           </mat-error>
         </mat-form-field>
@@ -74,38 +81,43 @@
       <div class="form-fields">
         <mat-form-field appearance="outline" class="tienda-f-width">
           <mat-label>Nombre del negocio</mat-label>
-          <input matInput type="text" [formControl]="form.controls.manufacturerName" placeholder="Introduce el nombre de tu negocio" />
-          <mat-error *ngIf="form.controls.manufacturerName.hasError('required') && form.controls.manufacturerName.touched">
+          <input matInput type="text" [formControl]="form.controls.manufacturerName"
+            placeholder="Introduce el nombre de tu negocio" />
+          <mat-error
+            *ngIf="form.controls.manufacturerName.hasError('required') && form.controls.manufacturerName.touched">
             El nombre del negocio es requerido
           </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="tienda-f-width">
           <mat-label>Teléfono</mat-label>
-          <input matInput type="tel" [formControl]="form.controls.manufacturerPhone" placeholder="Introduce tu número de teléfono" />
-          <mat-error *ngIf="form.controls.manufacturerPhone.hasError('required') && form.controls.manufacturerPhone.touched">
+          <input matInput type="tel" [formControl]="form.controls.manufacturerPhone"
+            placeholder="Introduce tu número de teléfono" />
+          <mat-error
+            *ngIf="form.controls.manufacturerPhone.hasError('required') && form.controls.manufacturerPhone.touched">
             El teléfono es requerido
           </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="tienda-f-width">
           <mat-label>Dirección</mat-label>
-          <input matInput type="text" [formControl]="form.controls.manufacturerAddress" placeholder="Introduce la dirección de tu negocio" />
-          <mat-error *ngIf="form.controls.manufacturerAddress.hasError('required') && form.controls.manufacturerAddress.touched">
+          <input matInput type="text" [formControl]="form.controls.manufacturerAddress"
+            placeholder="Introduce la dirección de tu negocio" />
+          <mat-error
+            *ngIf="form.controls.manufacturerAddress.hasError('required') && form.controls.manufacturerAddress.touched">
             La dirección es requerida
           </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="tienda-f-width">
           <mat-label>Descripción (opcional)</mat-label>
-          <textarea matInput [formControl]="form.controls.manufacturerDescription" placeholder="Describe tu negocio" rows="4"></textarea>
+          <textarea matInput [formControl]="form.controls.manufacturerDescription" placeholder="Describe tu negocio"
+            rows="4"></textarea>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="tienda-f-width">
-          <mat-label>URL de imagen (opcional)</mat-label>
-          <input matInput [formControl]="form.controls.manufacturerImage" placeholder="https://ejemplo.com/imagen.jpg" />
-        </mat-form-field>
       </div>
+      <ng-container *ngTemplateOutlet="imagesTemplate"></ng-container>
+      {{ imageToDisplay() }}
     </div>
 
     <div class="register-footer">
@@ -115,3 +127,18 @@
     </div>
   </form>
 </div>
+
+
+<ng-template #imagesTemplate>
+  <div class="images-container">
+    <app-carrusel [showNavigation]="false" [showIndicators]="false" [images]="[imageToDisplay()]"></app-carrusel>
+    <div class="row">
+      <label class="file-input-label">
+        <input type="file" accept="image/*" #imageInput (change)="onFileSelected($event)" style="display: none;" />
+        <button type="button" class="tienda-primary-button" (click)="imageInput.click()">
+          Cambiar imagen de perfil
+        </button>
+      </label>
+    </div>
+  </div>
+</ng-template>

@@ -1,6 +1,6 @@
 import { DestroyRef, inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, Observable, switchMap, throwError } from 'rxjs';
+import { catchError, forkJoin, Observable, of, switchMap, throwError } from 'rxjs';
 import { API_CONFIG } from '../../core/config/api.config';
 import { UpdateUserDB, User, UserDB } from '../../core/models/User';
 import { AddManufacturerDB, Manufacturer, UpdateManufacturerDB } from '../../core/models/Manufacturer';
@@ -34,7 +34,57 @@ export class RegisterService {
   private readonly manufacturerService = inject(ManufacturerService);
   private readonly toastService = inject(ToastService);
 
-  register(registerData: RegisterData): Observable<InsertOneResult> {
+  register(registerData: RegisterData, imageFile?: File) {
+    const userData: Partial<UserDB> = {
+      name: registerData.name,
+      email: registerData.email,
+      password: registerData.password,
+    };
+    const manufacturer = registerData.manufacturer;
+    if (manufacturer) {
+      this.createManufacturer(registerData, imageFile);
+    } else {
+      this.createUser(userData).subscribe(() => {
+        this.toastService.showMessage(ToastTypes.SUCCESS, 'Registro exitoso', 'Tu cuenta ha sido creada correctamente');
+      });
+    }
+  }
+
+  update(userId: User['uuid'], manufacturerId: Manufacturer['uuid'], registerData: RegisterData, destroyRef: DestroyRef, imageFile?: File, oldImage?: string): void {
+    const userData: UpdateUserDB = {
+      name: registerData.name,
+      email: registerData.email,
+      password: registerData.password,
+      phone: registerData.phone,
+    };
+    this.updateUser(userId, userData).pipe(
+      takeUntilDestroyed(destroyRef),
+      switchMap(() => {
+        const manufacturerFormData = registerData.manufacturer;
+        if (manufacturerFormData) {
+          const manufacturerData: UpdateManufacturerDB = {
+            name: manufacturerFormData.name,
+            phone: manufacturerFormData.phone,
+            email: manufacturerFormData.email,
+            address: manufacturerFormData.address,
+            description: manufacturerFormData.description,
+            image: manufacturerFormData.image,
+          };
+          return this.manufacturerService.updateManufacturer(manufacturerId, manufacturerData);
+        }
+        return of(undefined);
+      })
+    ).subscribe({
+      next: () => {
+        if (imageFile) {
+          this.manufacturerService.uploadManufacturerImage(manufacturerId, imageFile).subscribe();
+        }
+        this.toastService.showMessage(ToastTypes.SUCCESS, 'Actualización exitosa', 'Tu cuenta ha sido actualizada correctamente');
+      },
+    });
+  }
+
+  private createManufacturer(registerData: RegisterData, imageFile?: File) {
     if (registerData.manufacturer) {
       const manufacturer: AddManufacturerDB = {
         name: registerData.manufacturer.name,
@@ -44,51 +94,30 @@ export class RegisterService {
         description: registerData.manufacturer.description,
         image: registerData.manufacturer.image
       };
-      return this.manufacturerService.createManufacturer(manufacturer).pipe(
-        switchMap((rowInserted: InsertOneResult) => {
-          return this.createUser({
+      this.manufacturerService.createManufacturer(manufacturer).subscribe((rowInserted: InsertOneResult) => {
+        if (imageFile) {
+          this.manufacturerService.uploadManufacturerImage(rowInserted.insertedId, imageFile).subscribe(() => {
+            const createUser = this.createUser({
+              name: registerData.name,
+              email: registerData.email,
+              password: registerData.password,
+              manufacturerId: rowInserted.insertedId
+            }).subscribe(() => {
+              this.toastService.showMessage(ToastTypes.SUCCESS, 'Registro exitoso', 'Tu cuenta ha sido creada correctamente');
+            });
+          });
+        }
+        else {
+          this.createUser({
             name: registerData.name,
             email: registerData.email,
             password: registerData.password,
             manufacturerId: rowInserted.insertedId
+          }).subscribe(() => {
+            this.toastService.showMessage(ToastTypes.SUCCESS, 'Registro exitoso', 'Tu cuenta ha sido creada correctamente');
           });
-        }),
-      );
-    }
-    const userData: Partial<UserDB> = {
-      name: registerData.name,
-      email: registerData.email,
-      password: registerData.password,
-    };
-    return this.createUser(userData);
-  }
-
-  update(userId: User['uuid'], manufacturerId: Manufacturer['uuid'], registerData: RegisterData, destroyRef: DestroyRef): void{
-    const userData: UpdateUserDB = {
-      name: registerData.name,
-      email: registerData.email,
-      password: registerData.password,
-      phone: registerData.phone,
-    };
-    this.updateUser( userId, userData).pipe(takeUntilDestroyed(destroyRef)).subscribe({
-      next: () => {
-        this.toastService.showMessage(ToastTypes.SUCCESS, 'Actualización exitosa', 'Tu cuenta ha sido actualizada correctamente');
-      },
-      error: () => {
-        this.toastService.showMessage(ToastTypes.ERROR, 'Error al actualizar', 'Ha ocurrido un error al actualizar tu cuenta');
-      }
-    });
-    const manufacturerFormData = registerData.manufacturer;
-    if (manufacturerFormData) {
-      const manufacturerData: UpdateManufacturerDB = {
-        name: manufacturerFormData.name,
-        phone: manufacturerFormData.phone,
-        email: manufacturerFormData.email,
-        address: manufacturerFormData.address,
-        description: manufacturerFormData.description,
-        image: manufacturerFormData.image,
-      };
-      this.manufacturerService.updateManufacturer(manufacturerId, manufacturerData).pipe(takeUntilDestroyed(destroyRef)).subscribe();
+        }
+      });
     }
   }
 

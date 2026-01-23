@@ -1,4 +1,4 @@
-import { Component, computed, DestroyRef, effect, inject } from '@angular/core';
+import { Component, computed, DestroyRef, effect, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -14,6 +14,8 @@ import { ManufacturerService } from '../../../manufacturers/services/manufacture
 import { CurrentUserService } from '../../../core/services/current-user.service';
 import { Manufacturer } from '../../../core/models/Manufacturer';
 import { User } from '../../../core/models/User';
+import { CarruselComponent } from '../../../shared/components/carrusel/carrusel.component';
+import { InsertOneResult } from '../../../core/models/InsertOneResult';
 
 @Component({
   selector: 'app-register',
@@ -24,6 +26,7 @@ import { User } from '../../../core/models/User';
     MatInputModule,
     MatButtonModule,
     MatCheckboxModule,
+    CarruselComponent
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
@@ -39,9 +42,12 @@ export class RegisterComponent {
 
   public user = this.currentUserService.currentUser;
   public manufacturer = this.currentUserService.currentManufacturer;
+  public manufacturerImage = computed(() => this.manufacturer()?.image);
+  public image = signal<string | undefined>(undefined);
+  public imageToDisplay = computed(() => this.image() ?? this.manufacturerImage() ?? '');
   public isUpdateMode = computed(() => this.user() !== undefined);
 
-
+  private imageFile = signal<File | undefined>(undefined);
   public form = this.registerFormService.crearFormulario();
 
   public get isManufacturer(): boolean {
@@ -112,26 +118,58 @@ export class RegisterComponent {
     };
 
     if (this.isUpdateMode()) {
-      this.update(this.user()!.uuid, this.manufacturer()!.uuid!, registerData);
+      this.update(this.user()!.uuid, this.manufacturer()!.uuid!, registerData, this.imageFile(), this.manufacturerImage() ?? undefined);
     } else {
-      this.create(registerData);
+      this.create(registerData, this.imageFile());
     }
   }
 
-  private create(registerData: RegisterData){
-    this.registerService.register(registerData).subscribe({
-      next: () => {
-        this.toastService.showMessage(
-          ToastTypes.SUCCESS,
-          'Registro exitoso',
-          'Tu cuenta ha sido creada correctamente'
-        );
-        this.router.navigate(['/']);
-      },
-    });
+  private create(registerData: RegisterData, imageFile?: File){
+    this.registerService.register(registerData, imageFile)
+    this.router.navigate(['/']);
   }
 
-  private update(userId: User['uuid'], manufacturerId: Manufacturer['uuid'], registerData: RegisterData){
-    this.registerService.update(userId, manufacturerId, registerData, this.destroyRef);
+  private update(userId: User['uuid'], manufacturerId: Manufacturer['uuid'], registerData: RegisterData, imageFile?: File, oldImage?: string){
+    this.registerService.update(userId, manufacturerId, registerData, this.destroyRef, imageFile, oldImage);
+  }
+
+  public onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+
+      // Validar que sea una imagen
+      if (!file.type.startsWith('image/')) {
+        this.toastService.showMessage(
+          ToastTypes.ERROR, 
+          'Archivo inválido', 
+          'Por favor selecciona un archivo de imagen'
+        );
+        return;
+      }
+
+      // Validar tamaño (por ejemplo, máximo 5MB)
+      const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+      if (file.size > MAX_FILE_SIZE) {
+        this.toastService.showMessage(
+          ToastTypes.ERROR, 
+          'Archivo muy grande', 
+          'El tamaño máximo permitido es 5MB'
+        );
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e: ProgressEvent<FileReader>) => {
+        const base64String = e.target?.result as string;
+        this.image.set(base64String);
+      };
+      reader.readAsDataURL(file);
+
+      this.imageFile.set(file);
+
+      // Limpiar el input para permitir seleccionar el mismo archivo nuevamente
+      input.value = '';
+    }
   }
 }

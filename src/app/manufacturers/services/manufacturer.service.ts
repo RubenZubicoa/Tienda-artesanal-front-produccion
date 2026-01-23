@@ -40,4 +40,14 @@ export class ManufacturerService {
   deleteManufacturer(manufacturerId: string): Observable<void> {
     return this.http.delete<void>(this.url + '/' + manufacturerId);
   }
+
+  uploadManufacturerImage(manufacturerId: string, image: File, oldImage?: string): Observable<void> {
+    const formData = new FormData();
+    formData.append('manufacturerId', manufacturerId);
+    formData.append('image', image);
+    if (oldImage) {
+      formData.append('oldImage', oldImage);
+    }
+    return this.http.post<void>(this.url + '/uploadImage', formData);
+  }
 }
