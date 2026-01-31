@@ -30,6 +30,9 @@ import {
   ManufacturerWithLocation,
 } from '../../../core/models/Manufacturer';
 import { ManufacturersFiltersComponent } from '../../components/manufacturers-filters/manufacturers-filters.component';
+import { ManufacturerPageViews } from '../../models/manufacturer-page-views';
+import { ToastService } from '../../../shared/components/toast/toast.service';
+import { ToastTypes } from '../../../shared/components/toast/toastData';
 
 @Component({
   selector: 'app-manufacturers',
@@ -48,11 +51,12 @@ import { ManufacturersFiltersComponent } from '../../components/manufacturers-fi
   styleUrl: './manufacturers.component.scss',
 })
 export class ManufacturersComponent implements OnInit {
-  public view = signal<'map' | 'list'>('map');
+  public view = signal<ManufacturerPageViews>(ManufacturerPageViews.MAP);
 
   private readonly router = inject(Router);
   private readonly dialog = inject(MatDialog);
   private readonly manufacturerService = inject(ManufacturerService);
+  private readonly toastService = inject(ToastService);
 
   public manufacturers = signal<Manufacturer[]>([]);
   public manufacturersLocations = signal<ManufacturerWithLocation[]>([]);
@@ -67,17 +71,17 @@ export class ManufacturersComponent implements OnInit {
   public mapLocation = computed(
     () => this.filters().location ?? this.currentLocation()
   );
-
-  constructor() {
-    getCurrentLocation().then((currentLocation) => {
-      this.currentLocation.set(currentLocation);
-    });
-  }
+  public readonly views = ManufacturerPageViews;
 
   ngOnInit(): void {
-    this.manufacturerService.getManufacturers().subscribe((manufacturers) => {
-      this.manufacturers.set(manufacturers);
-      this.getManufacturerLocations(manufacturers, this.filters());
+    getCurrentLocation().then((currentLocation) => {
+      this.currentLocation.set(currentLocation);
+      this.manufacturerService.getManufacturers().subscribe((manufacturers) => {
+        this.manufacturers.set(manufacturers);
+        this.getManufacturerLocations(manufacturers, this.filters());
+      });
+    }).catch((error) => {
+      this.toastService.showMessage(ToastTypes.ERROR, 'Error', 'Error al obtener la ubicación actual, por favor revise la configuración de su dispositivo o introduce una ubicación manualmente');
     });
   }
 
@@ -85,7 +89,7 @@ export class ManufacturersComponent implements OnInit {
     this.router.navigate(['/manufacturers', manufacturerId]);
   }
 
-  public toggleView(view: 'map' | 'list') {
+  public toggleView(view: ManufacturerPageViews) {
     this.view.set(view);
   }
 
@@ -112,15 +116,13 @@ export class ManufacturersComponent implements OnInit {
     const mapLocation = filters.location ?? this.currentLocation();
     this.manufacturersLocations.set([]);
     manufacturers.forEach((manufacturer) => {
-      if (filters.name) {
         if (
           manufacturer.name
             .toLowerCase()
-            .includes(filters.name.toLowerCase()) === false
+            .includes(filters.name?.toLowerCase() ?? '') === false
         ) {
           return;
         }
-      }
       getLocationFromAddress(manufacturer.address ?? '').then((location) => {
         const distance = getDistanceBetweenCoordinates(
           mapLocation ?? { lat: 0, lng: 0 },

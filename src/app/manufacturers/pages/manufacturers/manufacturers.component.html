@@ -13,7 +13,7 @@
       <ng-container *ngTemplateOutlet="buttonToggleGroup"></ng-container>
     </div>
   </div>
-  @if (view() === 'list') {
+  @if (view() === views.LIST) {
   <div class="products-list-container">
     @for (card of manufacturersCards(); track card.title) {
     <app-card
@@ -36,10 +36,10 @@
 
 <ng-template #buttonToggleGroup>
   <div class="button-toggle-group">
-    <button mat-icon-button (click)="toggleView('map')" [class.active]="view() === 'map'">
+    <button mat-icon-button (click)="toggleView(views.MAP)" [class.active]="view() === views.MAP">
       <mat-icon>map</mat-icon>
     </button>
-    <button mat-icon-button (click)="toggleView('list')" [class.active]="view() === 'list'">
+    <button mat-icon-button (click)="toggleView(views.LIST)" [class.active]="view() === views.LIST">
       <mat-icon>list</mat-icon>
     </button>
   </div>
